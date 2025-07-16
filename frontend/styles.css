@@ -6,7 +6,7 @@
 body{
     font-family: 'Courier New', Courier, monospace;
     margin: 0;
-    background-color: #feffc0;
+    background-color: #fcfcf6;
     color: #222;
 }
 
@@ -15,7 +15,6 @@ header {
     padding: 10px 0;
     text-align: left;
     font-size: larger;
-    background: linear-gradient(to right, #f1d96c, #eeba1e);
     position: relative;
 }
 .header-container {
@@ -64,7 +63,7 @@ header {
 .quotes {
     padding: 40px;
     text-align: center;
-    background-color: rgb(250, 234, 17);
+    background-color: rgb(12, 211, 128);
     color: rgb(13, 19, 24);
     font-style: italic;
     font-size: larger;
@@ -75,9 +74,81 @@ header {
     margin-bottom: 20px;
 }
 
+
+.about {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: linear-gradient(to right, #f1d96c, #eeba1e);
+    color: rgb(20, 17, 14);
+}
+
+.about-content {
+    max-width: 80px;
+    margin: 0 auto;
+    padding:0 20px; ;
+}
+
+.about h2{
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: rgb(12, 9, 9);
+}
+
+.about p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.about em {
+  font-style: italic;
+  color: #aa8c06;;
+  font-weight: bold;
+}
+
+.see-more-wrapper{
+    text-align: center;
+    margin: 40px 0;
+}
+
+.see-more-btn {
+    width: 100%;
+    padding: 12px;
+    background: #eeba1e;
+    border-radius: 8px;
+    outline: white;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.see-more-btn:hover {
+  background-color: #b3890b;
+}
+
+.how-it-works{
+    padding: 30px 15px;
+    text-align: center;
+    background-color: #e6e3e3;
+}
+.how-it-works h2{
+    margin: 15px;
+    font-weight: 3rem;
+}
+
+.steps-container{
+    display: flex;
+    justify-content: space-between;
+    gap: 20x;
+}
+
 .therapist-preview{
     padding: 40px 20px;
     text-align: center;
+    background-color: #f5e392;
 }
 
 .therapist-preview h2 {
@@ -132,13 +203,13 @@ header {
 
 .cta a {
     text-decoration: underline;
-    color: #ddbb23;
+    color: #aa8c06;
     font-weight: bold;
 }
 
 footer {
     text-align: center;
-    background-color: #f1d96c;
+    background-color: #e4c52d;
     color: rgb(20, 17, 14);
     position: relative;
     font-size: 0.9rem;

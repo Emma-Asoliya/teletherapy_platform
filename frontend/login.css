@@ -10,12 +10,13 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: rgb(60, 28, 238);
+    background: linear-gradient(to right, #f56fde, #17a3be);
+;
 }
 
 .wrapper{
     width: 450px;
-    background: rgb(6, 175, 226);
+    background: rgb(255, 255, 255);
     color: black;
     border-radius: 20px;
     padding: 30px 20px;
@@ -30,7 +31,7 @@ body{
     position: relative;
     width: auto;
     height: 50px;
-    background: rgb(6, 175, 226);
+    background: rgb(255, 255, 255);
     margin: 30px 0; 
 }
 
@@ -83,7 +84,7 @@ body{
 .wrapper .btn{
     width: 100%;
     height: 50px;
-    background: rgb(12, 8, 206);
+    background: rgb(7, 30, 235);
     border-radius: 40px;
     outline: white;
     font-size: 20px;
@@ -92,6 +93,8 @@ body{
     font-weight: 700;
     margin-bottom: 20px;
 }
+.wrapper .btn:hover{
+background-color: #452f6a;}
 
 .wrapper .register-link{
     text-align: center;
