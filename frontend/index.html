@@ -5,27 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome | UnMutedMinds</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="index.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="header-container">
             <div class="logo">
-                <h1>UnMutedMinds</h1>
+            <h1>UnMutedMinds</h1>
         </div>
+
+        <nav>
+            <ul id="sidemenu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+
+            </ul>
+        </nav>
         <div class="buttons">
             <a href="login.html" class="btn">Log In</a>
             <a href="register.html" class="btn">Sign Up</a>
         </div>
     </div>
 
-    <p class="tagline">HEALING MEETS CONNECTION</p>
+        <section class="hero-banner">
+        <div class="hero-text">
+            <h1>Welcome to <SPAN>UnMutedMinds | </SPAN> THE PLACE WHERE...<br><span>HEALING MEETS CONNECTION</span></h1>
+            <p>"You are allowed to feel. You are allowed to heal."</p>
+
+        </div>
+
+</section>
+
 
     </header>
 
-    <section class="quotes">
-        <h2>Today's Thought</h2>
-        <p id="quote">"You are allowed to feel. You are allowed to heal."</p>
-    </section>
 
     <section class="about" id="about">
         <div class="about-image">
@@ -49,17 +63,17 @@
         <div class="steps-container">
 
             <div class="step">
-                <img src="Images/share-your-story" alt="Share Your Story">
-                 <h3>Step 1: <br>Share Your Story</h3>\
-                  <p>Tell us what youre feeling and wahat you need</p>
+                <img src="images/share_your_story.png" alt="Share Your Story">
+                 <h3>Step 1: <br>Share Your Story</h3>
+                  <p>Tell us what youre feeling and what you need</p>
             </div>
             <div class="step">
-                <img src="Images/find_your_fit" alt="Find Your Fit">
+                <img src="images/find your fit.png" alt="Find Your Fit">
                  <h3>Step 2: <br>Find Your fit</h3>
-                <p>Browse through therapists and find the one that best tailors to <strong>YOU</strong></p>
+                <p>Browse through therapists and find the one that best suits <strong>YOU</strong></p>
             </div>
             <div class="step">
-                <img src="Images/Healing" alt="Start Healing">
+                <img src="images/healing.jpg" alt="Start Healing">
                  <h3>Step 3: <br>Start Healing</h3>
                 <p>Choose a therapist, book a session and start your journey of Emotional freedom</p>
             </div>
@@ -71,18 +85,22 @@
         <h2>Meet Our Therapists</h2>
         <div class="card-container">
         <div class="card">
+            <img src="images/therapist.jpg" alt="">
             <p><strong>Name:</strong> Dr. Shobi</p>
             <p><strong>Specialization:</strong> Trauma Recovery</p>
             <p><strong>Mode:</strong> Video</p>
+            
         </div>
         <div class="card blurred">
+            <img src="images/therapist 1.jpg" alt="">
             <p>Name: Mrs Florence</p>
             <p>Specialization: Child Therapy</p>
             <p>Mode: Audio</p>
         </div>
         <div class="card blurred">
+            <img src="images/therapist2.jpg" alt="Picture of mr Stanley">
             <p>Name: Mr Stanley</p>
-            <p>Specialization: Marraige and Relationships</p>
+            <p>Specialization: Marriage and Relationships</p>
             <p>Mode: Chat</p>
         </div>
     </div>
@@ -92,6 +110,25 @@
     <footer>
         <p>&copy; 2025 UnMutedMinds</p>
     </footer>
+
+    <script>
+  const quotes = [
+    `"You are not alone. Let's walk this journey together."`,
+    `"Healing is not linear—and that's okay."`,
+    `"You are allowed to feel. You are allowed to heal."`,
+    `"Breaking down is the first step to rising up."`
+  ];
+
+  let currentQuoteIndex = 0;
+
+function rotateQuotes() {
+  const quoteText = document.getElementById("quoteText");
+  currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+  quoteText.textContent = quotes[currentQuoteIndex];
+}
+
+setInterval(rotateQuotes, 5000);
+</script>
 
     <script src="script.js"></script>
 </body>

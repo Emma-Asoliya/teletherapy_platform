@@ -1,46 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up | UnMutedMinds</title>
-    <link rel="stylesheet" href="register.css">
-    <script src="script.js" defer></script>
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel='stylesheet'>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up | UnMutedMinds</title>
+  <link rel="stylesheet" href="register.css" />
+  <script src="index.js" type="text/javascript" defer></script>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <style>
+    .hidden {
+      visibility: hidden;
+      position: absolute;
+      height: 0;
+      overflow: hidden;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="wrapper">
-        <form action="register" method="POST">
-            <h1>Sign Up</h1>
+  <div class="wrapper">
+    <form action="register" method="POST" enctype="multipart/form-data">
+      <h2>Sign Up to UnMutedMinds</h2>
 
-            <div class="input-box">
-                <input type="text" name="username" placeholder="Username" required>
-                <i class='bx bxs-user' ></i>
-            </div>
+      <div class="input-box">
+        <input type="text" name="username" placeholder="Username" required />
+        <i class="bx bxs-user"></i>
+      </div>
 
-            <div class="input-box">
-                <input type="email" name="email" placeholder="Email" required>
-                <i class='bx bxs-user' ></i>
-            </div>
+      <div class="input-box">
+        <input type="email" name="email" placeholder="Email" required />
+        <i class="bx bx-envelope"></i>
+      </div>
 
-            <div class="input-box">
-            <input type="password" id="password" placeholder="Password" required>
-            <i class='bx bxs-lock-alt' ></i>
-            </div>
 
-            <div class="user-role">
-                <label><input type="radio" name="role" value="client" required />I am a Client</label>
-                <label><input type="radio" name="role" value="therapist" required />I am a Therapist</label>
-            </div>
+      <div class="input-box">
+        <input type="text" id="gender" name="gender" placeholder="Gender" required />
+        <i class='bx bx-male-female'></i>
+      </div>
 
-            <button type="submit" class="btn">Create Account</button>
+      <div class="input-box">
+        <input type="date" id="dob" name="dob" placeholder="Date of Birth" required />
+        <i class="bx bxs-calendar"></i>
+      </div>
 
-            <div class="register">
-                <p>Already have an account? <a href="login.html">Log In</a></p>
-            </div>
-        </form>
-    </div>
+        <div class="input-box">
+        <input type="password" id="password" name="password" placeholder="Password" required />
+        <i class="bx bxs-lock-alt"></i>
+      </div>
+
+
+      <label for="role">I am signing up as:</label>
+      <select id="role" name="role" required>
+        <option value="">Select one</option>
+        <option value="client">Client</option>
+        <option value="therapist">Therapist</option>
+      </select>
+
+      <!-- Client-Specific Fields -->
+      <div id="client-fields" class="hidden">
+        <label for="budget">Budget Range (Optional)</label>
+        <input type="text" id="budget" name="budget" placeholder="e.g. 40,000 - 80,000 RWF" />
+
+        <label for="clientPicture">Upload Profile Picture</label>
+        <input type="file" id="clientPicture" name="profilePicture" accept="image/*" />
+      </div>
+
+      <!-- Therapist-Specific Fields -->
+      <div id="therapist-fields" class="hidden">
+        <label for="qualifications">Qualifications</label>
+        <input type="text" id="qualifications" name="qualifications" />
+
+        <label for="specializations">Specializations</label>
+        <input type="text" id="specializations" name="specializations" />
+
+        <label for="therapistPicture">Upload Profile Picture</label>
+        <input type="file" id="therapistPicture" name="profilePicture" accept="image/*" />
+      </div>
+
+
+    
+      <button type="submit" class="btn">Create Account</button>
+
+      <div class="register">
+        <p>Already have an account? <a href="login.html">Log In</a></p>
+      </div>
+    </form>
+  </div>
+
+  <script>
+  const form = document.querySelector('form'); 
+
+  const roleSelect = document.getElementById('role');
+  const clientFields = document.getElementById('client-fields');
+  const therapistFields = document.getElementById('therapist-fields');
+  const qualifications = document.getElementById('qualifications');
+  const specializations = document.getElementById('specializations');
+
+  roleSelect.addEventListener('change', function () {
+    clientFields.classList.add('hidden');
+    therapistFields.classList.add('hidden');
+
+    qualifications.removeAttribute('required');
+    specializations.removeAttribute('required');
+
+    if (this.value === 'client') {
+      clientFields.classList.remove('hidden');
+    } else if (this.value === 'therapist') {
+      therapistFields.classList.remove('hidden');
+      qualifications.setAttribute('required', '');
+      specializations.setAttribute('required', '');
+    }
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/signup', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        alert('Signup successful!');
+        window.location.href = 'dashboard.html';
+      } else {
+        alert(result.message || 'Signup failed.');
+      }
+    } catch (err) {
+      console.error('Signup error:', err);
+      alert('Something went wrong.');
+    }
+  });
+</script>
+
 </body>
-
 </html>

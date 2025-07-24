@@ -1,0 +1,224 @@
+/* Reset some basics */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  line-height: 1.5;
+}
+
+body {
+  background: #f9f9f9;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #00a070; /* purple brand color */
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+nav ul li a,
+nav ul li button {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+nav ul li a:hover,
+nav ul li button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.logout {
+  background-color: #049c37;
+  border-radius: 4px;
+  padding: 0.4rem 1rem;
+  font-weight: 700;
+}
+
+.logout:hover {
+  background-color: #038f71;
+}
+
+/* Main container */
+.dashboard-main {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* Welcome section */
+.welcome h1 {
+  font-size: 2rem;
+  color: #038f71;
+  margin-bottom: 0.3rem;
+}
+
+.welcome p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Therapist section */
+.therapist-section h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.therapist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.therapist-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  transition: transform 0.2s ease;
+}
+
+.therapist-card:hover {
+  transform: translateY(-5px);
+}
+
+.therapist-card img {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.therapist-card h3 {
+  font-size: 1.2rem;
+  color: #038f71;
+}
+
+.therapist-card p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.book-btn {
+  margin-top: auto;
+  background-color: #038f71;
+  border: none;
+  color: white;
+  padding: 0.6rem;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.book-btn:hover {
+  background-color: #038f71;
+}
+
+/* Edit profile section */
+.edit-profile h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+#edit-profile-form {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#edit-profile-form input[type="text"],
+#edit-profile-form input[type="email"],
+#edit-profile-form input[type="file"] {
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
+  border: 1.8px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+#edit-profile-form input[type="text"]:focus,
+#edit-profile-form input[type="email"]:focus,
+#edit-profile-form input[type="file"]:focus {
+  border-color: #048166;
+  outline: none;
+}
+
+#edit-profile-form button {
+  background-color: #038f71;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#edit-profile-form button:hover {
+  background-color: #038f71;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  nav ul {
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .dashboard-main {
+    padding: 0 1rem 2rem;
+  }
+
+  .therapist-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+    font-family:'Poppins', sans-serif
 }
 
 body{
@@ -10,7 +10,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(to right, #f56fde, #17a3be);
+    background: teal;
 }
 
 .wrapper{
@@ -64,47 +64,43 @@ body{
     font-size: 20px;
 }   
 
-.user-role{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: space-around;
-    margin: 20px 0;
-    color: rgb(6, 6, 7);
+select{
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background: #f0f0f0;
+    color: #333;
+    font-size: 15px;
 }
 
-.user-role label {
-    cursor: pointer;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 7px 10px;
+label{
+    font-weight: 500;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+
+.hidden{
+    display: none;
+}
+
+#client-fields, #therapist-fields {
+    margin-top: 15px;
+}
+
+#client-fields input,
+#therapist-fields input {
+    width: 100%;
+    pqdding: 12px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    transition: 0.3s ease;
-}
-.user-role input[type="radio"] {
-    accent-color: black;
-}
 
-.user-role label:hover {
-  background-color: #f0f0f0;
-}
-
-.remember-forgot{
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.85rem;
-    margin: 15px 0 15px;   
-}
-
-.remember-forgot a {
-    color: black;
-    text-decoration: none;
-}
-
-.remember-forgot a:hover {
-    text-decoration: underline;
 }
 
 .btn {
@@ -118,6 +114,7 @@ body{
     color: white;
     font-weight: 700;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 .btn:hover {
   background-color: #452f6a;
@@ -132,4 +129,15 @@ body{
 .register a {
     color: black;
     text-decoration: underline;;
+}
+
+.register a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .wrapper {
+        padding: 30px 20px;
+        
+    }
 }

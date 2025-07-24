@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Dashboard | UnMutedMinds</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">UnMutedMinds</div>
+    <nav>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><button id="logoutBtn" class="logout">Logout</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="dashboard-main">
+    <section class="welcome">
+      <h1>Welcome, <span id="userName"></span>!</h1>
+      <p>Your role: <span id="userRole"></span> | Email: <span id="userEmail"></span></p>
+    </section>
+
+    <section class="therapist-section">
+      <h2>Available Therapists</h2>
+      <div class="therapist-grid">
+        <!-- Example therapist card -->
+        <div class="therapist-card">
+          <img src="/uploads/demo-therapist.jpg" alt="Therapist" />
+          <h3>Dr. Amina Yusuf</h3>
+          <p>Specialization: Anxiety, PTSD</p>
+          <button class="book-btn">Book Appointment</button>
+        </div>
+        <div class="therapist-card">
+          <img src="/uploads/demo-therapist2.jpg" alt="Therapist" />
+          <h3>Therapist John Doe</h3>
+          <p>Specialization: Depression, Youth Mental Health</p>
+          <button class="book-btn">Book Appointment</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="edit-profile">
+      <h2>Edit Your Profile</h2>
+      <form id="edit-profile-form">
+        <input type="text" id="editName" name="name" placeholder="Update Name" required />
+        <input type="email" id="editEmail" name="email" placeholder="Update Email" required />
+        <input type="text" id="editBudget" name="budget" placeholder="Update Budget (optional)" />
+        <input type="file" name="profilePicture" accept="image/*" />
+        <button type="submit">Save Changes</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Unauthorized access');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      document.getElementById('userName').textContent = payload.name;
+      document.getElementById('userRole').textContent = payload.role || 'N/A';
+      document.getElementById('userEmail').textContent = payload.email;
+
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        localStorage.removeItem('token');
+        window.location.href = 'login.html';
+      });
+
+      document.getElementById('edit-profile-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Profile update functionality is under development.');
+      });
+    });
+  </script>
+</body>
+</html>
