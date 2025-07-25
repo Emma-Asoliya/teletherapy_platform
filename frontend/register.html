@@ -5,81 +5,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sign Up | UnMutedMinds</title>
   <link rel="stylesheet" href="register.css" />
-  <script src="index.js" type="text/javascript" defer></script>
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
   <style>
     .hidden {
-      visibility: hidden;
-      position: absolute;
-      height: 0;
-      overflow: hidden;
+      display: none;
+    }
+    .error-message {
+      color: #ff3860;
+      font-size: 0.8rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+    .input-box.invalid input {
+      border-color: #ff3860;
     }
   </style>
 </head>
 
 <body>
   <div class="wrapper">
-    <form action="register" method="POST" enctype="multipart/form-data">
+    <form id="signup-form">
       <h2>Sign Up to UnMutedMinds</h2>
 
       <div class="input-box">
-        <input type="text" name="username" placeholder="Username" required />
+        <input type="text" id="name" name="name" placeholder="Name" required />
         <i class="bx bxs-user"></i>
+        <span class="error-message" id="name-error"></span>
       </div>
 
       <div class="input-box">
-        <input type="email" name="email" placeholder="Email" required />
+        <input type="email" id="email" name="email" placeholder="Email" required />
         <i class="bx bx-envelope"></i>
+        <span class="error-message" id="email-error"></span>
       </div>
-
 
       <div class="input-box">
         <input type="text" id="gender" name="gender" placeholder="Gender" required />
         <i class='bx bx-male-female'></i>
+        <span class="error-message" id="gender-error"></span>
       </div>
 
       <div class="input-box">
         <input type="date" id="dob" name="dob" placeholder="Date of Birth" required />
         <i class="bx bxs-calendar"></i>
+        <span class="error-message" id="dob-error"></span>
       </div>
 
-        <div class="input-box">
-        <input type="password" id="password" name="password" placeholder="Password" required />
+      <div class="input-box">
+        <input type="password" id="password" name="password" placeholder="Password" required minlength="8" />
         <i class="bx bxs-lock-alt"></i>
+        <span class="error-message" id="password-error">Password must be at least 8 characters</span>
       </div>
 
-
-      <label for="role">I am signing up as:</label>
-      <select id="role" name="role" required>
-        <option value="">Select one</option>
-        <option value="client">Client</option>
-        <option value="therapist">Therapist</option>
-      </select>
+      <div class="input-box">
+        <select id="role" name="role" required>
+          <option value="">I am signing up as:</option>
+          <option value="client">Client</option>
+          <option value="therapist">Therapist</option>
+        </select>
+        <span class="error-message" id="role-error"></span>
+      </div>
 
       <!-- Client-Specific Fields -->
       <div id="client-fields" class="hidden">
-        <label for="budget">Budget Range (Optional)</label>
-        <input type="text" id="budget" name="budget" placeholder="e.g. 40,000 - 80,000 RWF" />
-
-        <label for="clientPicture">Upload Profile Picture</label>
-        <input type="file" id="clientPicture" name="profilePicture" accept="image/*" />
+        <div class="input-box">
+          <input type="text" id="budget" name="budget" placeholder="Budget Range (e.g., 40,000 - 80,000 RWF)" />
+        </div>
+        <div class="input-box">
+          <label for="clientPicture">Profile Picture</label>
+          <input type="file" id="clientPicture" name="profilePicture" accept="image/*" />
+        </div>
       </div>
 
       <!-- Therapist-Specific Fields -->
       <div id="therapist-fields" class="hidden">
-        <label for="qualifications">Qualifications</label>
-        <input type="text" id="qualifications" name="qualifications" />
-
-        <label for="specializations">Specializations</label>
-        <input type="text" id="specializations" name="specializations" />
-
-        <label for="therapistPicture">Upload Profile Picture</label>
-        <input type="file" id="therapistPicture" name="profilePicture" accept="image/*" />
+        <div class="input-box">
+          <input type="text" id="qualifications" name="qualifications" placeholder="Qualifications" />
+        </div>
+        <div class="input-box">
+          <input type="text" id="specializations" name="specializations" placeholder="Specializations" />
+        </div>
+        <div class="input-box">
+          <label for="therapistPicture">Profile Picture</label>
+          <input type="file" id="therapistPicture" name="profilePicture" accept="image/*" />
+        </div>
       </div>
 
-
-    
-      <button type="submit" class="btn">Create Account</button>
+      <button type="submit" class="btn" id="submit-btn">Create Account</button>
 
       <div class="register">
         <p>Already have an account? <a href="login.html">Log In</a></p>
@@ -87,56 +99,61 @@
     </form>
   </div>
 
-  <script>
-  const form = document.querySelector('form'); 
 
-  const roleSelect = document.getElementById('role');
-  const clientFields = document.getElementById('client-fields');
-  const therapistFields = document.getElementById('therapist-fields');
-  const qualifications = document.getElementById('qualifications');
-  const specializations = document.getElementById('specializations');
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('signup-form');
+    const roleSelect = document.getElementById('role');
+    const clientFields = document.getElementById('client-fields');
+    const therapistFields = document.getElementById('therapist-fields');
 
-  roleSelect.addEventListener('change', function () {
-    clientFields.classList.add('hidden');
-    therapistFields.classList.add('hidden');
+    roleSelect.addEventListener('change', () => {
+      clientFields.classList.add('hidden');
+      therapistFields.classList.add('hidden');
 
-    qualifications.removeAttribute('required');
-    specializations.removeAttribute('required');
-
-    if (this.value === 'client') {
-      clientFields.classList.remove('hidden');
-    } else if (this.value === 'therapist') {
-      therapistFields.classList.remove('hidden');
-      qualifications.setAttribute('required', '');
-      specializations.setAttribute('required', '');
-    }
-  });
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-
-    try {
-      const res = await fetch('http://localhost:5000/api/auth/signup', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const result = await res.json();
-
-      if (res.ok) {
-        alert('Signup successful!');
-        window.location.href = 'dashboard.html';
-      } else {
-        alert(result.message || 'Signup failed.');
+      if (roleSelect.value === 'client') {
+        clientFields.classList.remove('hidden');
+      } else if (roleSelect.value === 'therapist') {
+        therapistFields.classList.remove('hidden');
       }
-    } catch (err) {
-      console.error('Signup error:', err);
-      alert('Something went wrong.');
-    }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      try {
+        const res = await fetch('http://localhost:5000/api/auth/signup', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          alert(data.message || `Signup failed: ${data.message || 'Unknown error'}`);
+          return;
+        }
+
+       localStorage.setItem('authToken', data.token);
+       localStorage.setItem('user', JSON.stringify(data.user));
+
+       alert('Signup successful! Redirecting...');
+
+       const redirectPage = data.user.role === 'therapist' 
+         ? 'therapist-dashboard.html' 
+         : 'dashboard.html';
+        window.location.href = redirectPage;
+
+      } catch (err) {
+        console.error('Signup error:', err);
+        alert('Something went wrong. Please try again.');
+      }
+    });
   });
 </script>
+
 
 </body>
 </html>

@@ -29,17 +29,18 @@
     <section class="therapist-section">
       <h2>Available Therapists</h2>
       <div class="therapist-grid">
+        
         <!-- Example therapist card -->
         <div class="therapist-card">
-          <img src="/uploads/demo-therapist.jpg" alt="Therapist" />
-          <h3>Dr. Amina Yusuf</h3>
-          <p>Specialization: Anxiety, PTSD</p>
+          <img src="images/therapist 1.jpg" alt="Therapist" />
+          <h3>Mrs Florence</h3>
+          <p><b>Specialization:</b> Child Therapy, PTSD</p>
           <button class="book-btn">Book Appointment</button>
         </div>
         <div class="therapist-card">
-          <img src="/uploads/demo-therapist2.jpg" alt="Therapist" />
-          <h3>Therapist John Doe</h3>
-          <p>Specialization: Depression, Youth Mental Health</p>
+          <img src="images/therapist2.jpg" alt="Therapist" />
+          <h3>Mr Stanley</h3>
+          <p><b>Specialization:</b> Marriage and Relationships, Youth Mental Health</p>
           <button class="book-btn">Book Appointment</button>
         </div>
       </div>
@@ -67,19 +68,41 @@
       }
 
       const payload = JSON.parse(atob(token.split('.')[1]));
+      console.log('Token payload:', payload);
       document.getElementById('userName').textContent = payload.name;
       document.getElementById('userRole').textContent = payload.role || 'N/A';
       document.getElementById('userEmail').textContent = payload.email;
 
-      document.getElementById('logoutBtn').addEventListener('click', () => {
-        localStorage.removeItem('token');
-        window.location.href = 'login.html';
-      });
+     document.getElementById('logoutBtn').addEventListener('click', () => {
+       localStorage.removeItem('token');
+       window.location.href = 'login.html';
+     });
 
       document.getElementById('edit-profile-form').addEventListener('submit', (e) => {
         e.preventDefault();
         alert('Profile update functionality is under development.');
       });
+
+       function showToast(message) {
+    let toast = document.getElementById('toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'toast';
+      toast.className = 'toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 3000);
+  }
+
+  document.querySelectorAll('.book-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      showToast('Booking confirmed!');
+    });
+  });
     });
   </script>
 </body>
