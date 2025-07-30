@@ -1,158 +1,92 @@
-## UnMutedMinds Teletherapy Web App
+#  UnMutedMinds – Teletherapy Platform for Mental Wellness
 
-A teletherapy platform connecting clients and therapists with appointment booking, profiles, and video sessions.
- 
-## Table of Contents
-Project Overview
+Welcome to **UnMutedMinds**, a web-based teletherapy platform designed to bridge the gap between **mental health support** and **accessibility** for young people. Whether you're a **therapist** offering your services or a **client** looking for guidance, UnMutedMinds creates a safe, welcoming, and easy-to-use environment to connect and heal.
 
-Tech Stack
+---
 
-Prerequisites
+##  The Story Behind UnMutedMinds
 
-## Setup & Installation
+Mental health challenges among youth, especially in African communities, often go **unspoken** due to stigma, cost, or lack of access. UnMutedMinds was created to **break the silence**. It functions like a matchmaking platform — but instead of dates, we match **clients with therapists** based on needs, specializations, and availability.
 
-1. Clone the Repository
+The platform is centered on:
+- **Anonymity where needed**
+- **Simplicity and user empowerment**
+- **Affordable and accessible teletherapy**
 
-2. Backend Setup
+---
 
-3. Frontend Setup
+##  How to Use UnMutedMinds (User Guide)
 
-Running the App
+Once deployed, users can visit the platform in any modern browser.
 
-Environment Variables
+###  1. Sign Up as a Therapist or Client
+- **Therapists** register with their name, qualifications, specializations, and a profile picture.
+- **Clients** sign up with their basic info, a profile photo, and an optional bio.
 
-Folder Structure
+###  2. Log In
+- Use your email and password to securely log in.
+- A token-based login system ensures secure and persistent sessions.
 
-Notes
+###  3. Dashboard Access
+- After login, users are redirected to a **role-specific dashboard**:
+  - **Clients** see a list of available therapists and their profiles.
+  - **Therapists** see a list of booked appointments and client info.
 
-Troubleshooting
+###  4. Booking Appointments
+- Clients can:
+  - Browse therapists
+  - Book appointments
+  - View upcoming sessions
+  - Reschedule or cancel if needed
+  - Join a live video session when it’s time (powered by Jitsi)
 
-## Project Overview
-UnMutedMinds is a teletherapy web app that allows clients to find therapists, book and manage appointments, and conduct therapy sessions online. It features role-based dashboards, profile editing with image uploads, appointment booking, rescheduling, cancellation, and video conferencing integration.
+- Therapists can:
+  - View client appointment requests
+  - Join sessions
+  - Cancel or reschedule appointments
 
-## Tech Stack
-Backend: Node.js, Express.js
+###  5. Edit Your Profile
+- Both roles can update their personal details, profile picture, and short bio from the dashboard.
 
-Database: MongoDB
+###  6. Live Sessions
+- When it’s time, users can click **“Join Session”** and enter a secure video call room.
+- Sessions are browser-based and powered by **Jitsi Meet** (no software install required).
 
-Authentication: JWT
+###  7. Navigation
+- The **About Us** and **Contact Us** pages are accessible from the top navigation menu — both before and after login.
 
-File Uploads: Multer
+---
 
-Frontend: HTML, CSS, JavaScript (Vanilla)
+##  Tech Stack
 
-Video Conferencing: Jitsi API (or other)
+UnMutedMinds is built with a modern and clean web stack:
 
-## Prerequisites
-Make sure you have the following installed on your system:
+| Layer            | Technology Used                  |
+|------------------|----------------------------------|
+| Frontend         | HTML5, CSS3, JavaScript (Vanilla)|
+| Backend          | Node.js, Express.js              |
+| Database         | MongoDB (Mongoose ODM)           |
+| Authentication   | JWT (JSON Web Tokens)            |
+| File Uploads     | Multer for profile images        |
+| Video Sessions   | Jitsi Meet API                   |
+| Deployment Ready | Yes (Render, Vercel, Heroku)     |
 
-Node.js (v16 or higher)
+---
 
-npm (comes with Node.js)
+##  Future Features
 
-MongoDB installed and running locally, or a cloud MongoDB URI
+We plan to extend UnMutedMinds with:
+- ✅ In-app messaging between clients and therapists
+- ✅ Session reminders via email or SMS
+- ✅ Therapist availability calendar
+- ✅ Payment integration for paid sessions
+- ✅ Admin dashboard for moderation and analytics
+- ✅ Multilingual support for regional users
 
-(Optional) Git if you want to clone the repo
+---
 
-## Setup & Installation
+##  Why UnMutedMinds Matters
 
-### 1. Clone the Repository
-bash
-Copy code
-git clone https://github.com/your-username/unmutedminds.git
-cd unmutedminds
+This app is more than a product — it’s a movement to empower young people to speak up, get help, and prioritize their mental health. By merging **technology**, **storytelling**, and **accessibility**, UnMutedMinds makes wellness support **visible, valuable, and impactful**.
 
-### 2. Backend Setup
-Navigate to the backend folder (if your backend is inside a folder, e.g., backend):
-
-bash
-Copy code
-cd backend
-Install dependencies:
-
-bash
-Copy code
-npm install
-Create a .env file in the backend root directory with the following environment variables (see Environment Variables):
-
-env
-Copy code
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-Start the backend server:
-
-bash
-Copy code
-npm start
-The backend server will run at http://localhost:5000 by default.
-
-### 3. Frontend Setup
-Navigate to the frontend folder (if applicable):
-
-bash
-Copy code
-cd ../frontend
-If you don’t have a build step, you can simply open the .html files in a browser or use a simple static server like Live Server VSCode extension or:
-
-bash
-Copy code
-npx serve .
-Ensure that frontend API requests point to the backend URL (http://localhost:5000) in your JS fetch calls.
-
-## Running the App
-Make sure MongoDB is running locally or your cloud URI is working.
-
-Start backend server with npm start.
-
-Open frontend index.html or dashboard.html in your browser or serve the frontend with a static server.
-
-Use the app in your browser at http://localhost:<frontend-port-or-file>.
-
-## Environment Variables
-Create a .env file in your backend root with:
-
-env
-Copy code
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/unmutedminds
-JWT_SECRET=yourStrongJWTSecret
-Replace with your actual MongoDB URI and a strong JWT secret.
-
-Folder Structure (Example)
-bash
-Copy code
-/unmutedminds
-  /backend
-    /models
-    /routes
-    /middleware
-    index.js
-    package.json
-    .env
-  /frontend
-    dashboard.html
-    login.html
-    signup.html
-    css/
-    js/
-    images/
-README.md
-
-## Notes
-The app uses JWT for authentication; tokens are stored in localStorage on the client.
-
-Image uploads are handled via Multer and saved in /uploads directory.
-
-Video conferencing uses Jitsi API embedded in the frontend.
-
-Adjust API URLs in frontend JS files if your backend runs on a different port or domain.
-
-## Troubleshooting
-MongoDB connection errors: Ensure your MongoDB service is running or the URI is correct.
-
-CORS errors: Backend uses CORS middleware — ensure requests come from your frontend domain or localhost.
-
-JWT errors: Confirm your JWT secret matches in .env and frontend tokens are fresh.
-
-File upload errors: Check backend permissions for /uploads folder.
+---
