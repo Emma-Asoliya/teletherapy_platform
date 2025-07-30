@@ -141,16 +141,16 @@
         const data = await res.json();
         console.log('Signup response:', data);
 
-        if (!data.success) {
-          console.error('Signup failed:', data);
-          alert(data.message || "Signup failed. Please try again.");
-          return;
-        }
+if (!data.success) {
+  console.error('Signup failed:', data);
+  alert(data.message || "Signup failed. Please try again.");
+  return;
+}
 
-        showToast("Account created successfully! Redirecting to login...");
-        setTimeout(() => {
-          window.location.href = 'login.html';
-        }, 3000);
+alert("Account created successfully!");
+window.location.href = 'login.html';
+
+
 
       } catch (error) {
         console.error('Signup error:', error);

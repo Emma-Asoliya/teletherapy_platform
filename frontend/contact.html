@@ -8,21 +8,27 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo">UnMutedMinds</div>
-    <nav>
-      <ul>
-        <li><a href="about.html">About Us</a></li>
-      </ul>
-    </nav>
-  </header>
+
+  <nav class="main-nav">
+    <div class="nav-container">
+      <button class="hamburger" id="hamburgerBtn">
+        <i class="bx bx-menu"></i>
+      </button>
+      <div id="navLinks">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
   <section class="contact-section">
     <h1>Let's Talk 💬</h1>
     <p>If you have any questions, feedback, or just want to say hi, we’d love to hear from you.</p>
 
     <form id="contactForm">
-      <input type="text" id ="name" placeholder="Your Name" name="name" required />
+      <input type="text" id="name" placeholder="Your Name" name="name" required />
       <input type="email" id="email" placeholder="Your Email" name="email" required />
       <textarea rows="6" id="message" placeholder="Your Message" name="message" required></textarea>
       <button type="submit" class="btn">Send Message</button>
@@ -35,45 +41,52 @@
     <p>&copy; 2025 UnMutedMinds. All rights reserved.</p>
   </footer>
 
- <script>
-  document.getElementById('contactForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
+  <script>
+    const hamburgerBtn = document.getElementById("hamburgerBtn");
+    const navLinks = document.getElementById("navLinks");
 
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const message = document.getElementById('message').value.trim();
-    const toast = document.getElementById('contactToast');
+    hamburgerBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
 
-    try {
-      const res = await fetch('http://localhost:5000/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, message })
-      });
+    document.getElementById('contactForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
 
-      const data = await res.json();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const toast = document.getElementById('contactToast');
 
-      if (!res.ok) {
-        toast.textContent = data.message || 'Failed to send message.';
-        toast.classList.add('show', 'error'); 
+      try {
+        const res = await fetch('http://localhost:5000/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          toast.textContent = data.message || 'Failed to send message.';
+          toast.classList.add('show', 'error'); 
+          setTimeout(() => toast.classList.remove('show', 'error'), 3000);
+          return;
+        }
+
+        toast.textContent = 'Message sent successfully!';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+
+        this.reset();
+
+      } catch (err) {
+        console.error('Contact form error:', err);
+        toast.textContent = 'Something went wrong.';
+        toast.classList.add('show', 'error');
         setTimeout(() => toast.classList.remove('show', 'error'), 3000);
-        return;
       }
-
-      toast.textContent = 'Message sent successfully!';
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 3000);
-
-      this.reset();
-
-    } catch (err) {
-      console.error('Contact form error:', err);
-      toast.textContent = 'Something went wrong.';
-      toast.classList.add('show', 'error');
-      setTimeout(() => toast.classList.remove('show', 'error'), 3000);
-    }
-  });
-</script>
+    });
+  </script>
 
 </body>
 </html>

@@ -13,9 +13,12 @@
   <body>
     <header class="navbar">
       <div class="logo">UnMutedMinds</div>
-       <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu"></button>
+       <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
        <i class="bx bx-menu"></i>
-      <nav>
+       </button>
+
+      
+      <nav id="navLinks">
         <ul>
           <li><a href="dashboard.html">Dashboard</a></li>
           <li><a href="about.html">About Us</a></li>
@@ -382,7 +385,6 @@ card.appendChild(joinBtn);
     }
   }
 
-  // Booking modal handlers
   const bookingModal = document.getElementById("bookingModal");
   const closeBookingModalBtn = document.getElementById("closeBookingModal");
   const bookingForm = document.getElementById("bookingForm");
@@ -443,6 +445,15 @@ card.appendChild(joinBtn);
   fetchTherapists();
   fetchAndRenderAppointments();
 });
+
+
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const navLinks = document.getElementById("navLinks");
+
+  hamburgerBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("show");
+  });
+
 </script>
 
 

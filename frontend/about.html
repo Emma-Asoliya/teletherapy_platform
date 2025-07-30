@@ -6,12 +6,18 @@
     <title>About Us | UnMutedMinds</title>
     <link rel="stylesheet" href="about.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
 </head>
 <body>
     
     <nav class="main-nav"> 
         <div class="nav-container">
             <div class="logo">UnMutedMinds</div>
+              <button class="hamburger" id="hamburgerBtn">
+    <i class="bx bx-menu"></i>
+  </button>
+    <div id="navLinks">
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -56,6 +62,15 @@
     <footer>
         <p>&copy; 2025 UnMutedMinds. All rights reserved.</p>
     </footer>
+
+    <script>
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const navLinks = document.getElementById("navLinks");
+
+  hamburgerBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("show");
+  });
+</script>
 
 </body>
 </html>

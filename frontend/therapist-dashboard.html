@@ -10,6 +10,9 @@
 <body>
   <header class="navbar">
     <div class="logo">UnMutedMinds</div>
+      <button class="hamburger" id="hamburgerBtn">
+    <i class="bx bx-menu"></i>
+  </button>
     <nav>
       <ul>
         <li><a href="therapist-dashboard.html" class="active">Dashboard</a></li>
@@ -205,6 +208,14 @@
 
     loadAppointments();
   });
+
+  const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.navbar ul');
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('show');
+});
+
 </script>
 
 
