@@ -135,6 +135,44 @@ label{
     text-decoration: underline;
 }
 
+ .toast {
+ visibility: hidden;
+  min-width: 300px;
+  max-width: 90%;
+  background-color: #4caf50;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  padding: 16px;
+  position: fixed;
+  left: 50%;
+  bottom: 40px;
+  transform: translateX(-50%);
+  z-index: 9999;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .toast.show {
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+
+  @keyframes fadein {
+    from {bottom: 10px; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+
+  @keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 10px; opacity: 0;}
+  }
+@media (max-width: 768px) {
+    .wrapper {
+        padding: 30px 20px;
+        width: 90%;
+    }
+}
 @media (max-width: 480px) {
     .wrapper {
         padding: 30px 20px;

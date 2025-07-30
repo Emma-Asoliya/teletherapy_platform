@@ -15,18 +15,27 @@
             <h1>UnMutedMinds</h1>
         </div>
 
+        
+        
         <nav>
             <ul id="sidemenu">
                 <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact Us</a></li>
-
+                <li><a href="contact.html">Contact Us</a></li>
+                
             </ul>
         </nav>
         <div class="buttons">
             <a href="login.html" class="btn">Log In</a>
             <a href="register.html" class="btn">Sign Up</a>
         </div>
-    </div>
+        
+        <button id="menu-toggle" aria-label="Toggle menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+    </button>
+    
+</div>
 
         <section class="hero-banner">
         <div class="hero-text">
@@ -34,7 +43,6 @@
             <p>"You are allowed to feel. You are allowed to heal."</p>
 
         </div>
-
 </section>
 
 
@@ -111,23 +119,13 @@
         <p>&copy; 2025 UnMutedMinds</p>
     </footer>
 
-    <script>
-  const quotes = [
-    `"You are not alone. Let's walk this journey together."`,
-    `"Healing is not linear—and that's okay."`,
-    `"You are allowed to feel. You are allowed to heal."`,
-    `"Breaking down is the first step to rising up."`
-  ];
+     <script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const sidemenu = document.getElementById('sidemenu');
 
-  let currentQuoteIndex = 0;
-
-function rotateQuotes() {
-  const quoteText = document.getElementById("quoteText");
-  currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-  quoteText.textContent = quotes[currentQuoteIndex];
-}
-
-setInterval(rotateQuotes, 5000);
+  menuToggle.addEventListener('click', () => {
+    sidemenu.classList.toggle('show');
+  });
 </script>
 
     <script src="script.js"></script>

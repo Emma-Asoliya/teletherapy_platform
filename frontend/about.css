@@ -1,9 +1,7 @@
-/* about.css */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  text-align: center;
 }
 
 body {
@@ -13,17 +11,60 @@ body {
   line-height: 1.6;
 }
 
+.main-nav {
+  width: 100%;
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #0c7066;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #0d7c6f;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  color: #0d7c6f;
+  text-decoration: underline;
+}
+
 .about-header {
   background-color: #4DB6AC;
-  padding: 60px 20px;
   color: white;
   text-align: center;
+  padding: 60px 20px 40px;
 }
 
 .about-header h1 {
   font-size: 2.8rem;
   margin-bottom: 10px;
-  text-align: center;
 }
 
 .about-header p {
@@ -32,26 +73,32 @@ body {
 }
 
 .container {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
+}
+
+.about-content {
+  padding: 20px 40px;
 }
 
 .about-content h2 {
   margin-top: 30px;
   color: #0d7c6f;
   font-size: 1.8rem;
-  align-items: center;
+  text-align: center;
 }
 
 .about-content p,
 .about-content li {
   font-size: 1rem;
   margin-top: 15px;
+  text-align: center;
 }
 
-ul {
-  padding-left: 20px;
+.about-content ul {
+  padding-left: 0;
+  list-style-position: inside;
 }
 
 .cta-buttons {
@@ -75,22 +122,6 @@ ul {
 
 .btn:hover {
   background-color: #0d7c6f;
-}
-
-.btn-outline {
-  border: 2px solid #4DB6AC;
-  background: none;
-  color: #4DB6AC;
-  padding: 10px 22px;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.btn-outline:hover {
-  background-color: #4DB6AC;
-  color: white;
 }
 
 footer {

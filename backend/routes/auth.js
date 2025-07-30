@@ -4,6 +4,9 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const upload = require('../middleware/upload');
+const verifyToken = require('../middleware/auth');
+const crypto = require('crypto');
+
 
 const getUserData = (user) => ({
   id: user._id,
@@ -51,7 +54,7 @@ router.post('/signup', upload.single('profilePicture'), async (req, res) => {
     await user.save();
 
     const token = jwt.sign(
-      { userId: user._id, email: user.email, role: user.role },
+      { userId: user._id, name: user.name, email: user.email, role: user.role, photo: user.profilePicture || '' },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
@@ -100,7 +103,7 @@ router.post('/login', async (req, res) => {
     }
 
     const token = jwt.sign(
-      { userId: user._id, email: user.email, role: user.role },
+      { userId: user._id, email: user.email, role: user.role, profilePicture: user.profilePicture || '' },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
@@ -121,13 +124,143 @@ router.post('/login', async (req, res) => {
   }
 });
 
-const authMiddleware = require('../middleware/auth');
-router.get('/protected', authMiddleware, (req, res) => {
+router.put('/update-profile', verifyToken, upload.single('profilePicture'), async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const { name, email, bio, specializations, qualifications } = req.body;
+
+    const updateData = {
+      ...(name && { name }),
+      ...(email && { email }),
+      ...(bio && { bio }),
+      ...(qualifications && { qualifications }),
+      ...(specializations && {
+        specializations: Array.isArray(specializations)
+          ? specializations
+          : specializations.split(',').map(s => s.trim())
+      })
+    };
+
+    if (req.file) {
+      updateData.profilePicture = req.file.filename;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: updateData },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    res.json({
+      success: true,
+      message: 'Profile updated successfully',
+      user: getUserData(updatedUser),
+    });
+  } catch (error) {
+    console.error('Update profile error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error updating profile',
+    });
+  }
+});
+
+
+router.get('/protected', verifyToken, (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Access granted to protected route',
     user: req.user
   });
 });
+
+router.get('/therapists', async (req, res) => {
+  try {
+    const therapists = await User.find({ role: 'therapist' }).select('_id name specializations qualifications profilePicture');
+    res.status(200).json({ success: true, therapists });
+  } catch (err) {
+    console.error('Error fetching therapists:', err);
+    res.status(500).json({ success: false, message: 'Failed to fetch therapists' });
+  }
+});
+
+const resetToken = new Map();
+router.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+
+  if (!email)
+    return res.status(400).json({ success: false, message: 'Email is required' });
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user)
+      return res.status(404).json({ success: false, message: 'No user with that email' });
+
+    // Generate reset token (random string)
+    const token = crypto.randomBytes(32).toString('hex');
+    const expires = Date.now() + 3600 * 1000; // 1 hour expiry
+
+    // Store token and expiry — for production use DB or Redis
+    resetTokens.set(token, { userId: user._id.toString(), expires });
+
+    // Here you would send email with link like:
+    // `http://yourfrontend.com/reset-password?token=${token}`
+    // For now just return token in response (for testing)
+    console.log(`Password reset token for ${email}: ${token}`);
+
+    res.json({
+      success: true,
+      message: 'Password reset link sent to your email (simulated)',
+      token, // REMOVE this in production for security!
+    });
+  } catch (err) {
+    console.error('Forgot password error:', err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+router.post('/reset-password', async (req, res) => {
+  const { token, newPassword } = req.body;
+
+  if (!token || !newPassword)
+    return res.status(400).json({ success: false, message: 'Token and new password required' });
+
+  const record = resetTokens.get(token);
+
+  if (!record) {
+    return res.status(400).json({ success: false, message: 'Invalid or expired token' });
+  }
+
+  if (Date.now() > record.expires) {
+    resetTokens.delete(token);
+    return res.status(400).json({ success: false, message: 'Token expired' });
+  }
+
+  try {
+    const user = await User.findById(record.userId);
+    if (!user)
+      return res.status(404).json({ success: false, message: 'User not found' });
+
+    const bcrypt = require('bcryptjs');
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+
+    await user.save();
+
+    resetTokens.delete(token);
+
+    res.json({ success: true, message: 'Password reset successfully' });
+  } catch (err) {
+    console.error('Reset password error:', err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+
+
 
 module.exports = router;

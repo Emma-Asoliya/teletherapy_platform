@@ -3,7 +3,6 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  
 }
 
 body {
@@ -23,7 +22,7 @@ header {
   background-size: 55%;
   background-position: right;
   background-repeat: no-repeat;
-  background-attachment: fixed;;
+  background-attachment: fixed;
   height: 100vh;
 }
 
@@ -55,8 +54,8 @@ nav a {
 }
 
 .buttons {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
   justify-content: left;
 }
 
@@ -80,7 +79,6 @@ nav a {
   font-weight: bold;
 }
 
-/* NEW QUOTE SECTION */
 .hero-banner {
   display: flex;
   flex-wrap: wrap;
@@ -90,12 +88,12 @@ nav a {
   justify-content: space-between;
   flex-direction: row;
   max-width: 50%;
-
 }
 
 .hero-text {
   flex: 1 1 45%;
 }
+
 .hero-text p {
   font-size: 1.2rem;
   color: #555;
@@ -113,7 +111,6 @@ nav a {
 .hero-text h1 span {
   color: #00897b;
 }
-
 
 .hero-img {
   flex: 1;
@@ -146,9 +143,6 @@ nav a {
   }
 }
 
-
-
-/* ABOUT SECTION */
 .about {
   padding: 50px 20px;
   text-align: center;
@@ -189,7 +183,6 @@ nav a {
   background-color: #0d7c6f;
 }
 
-/* HOW IT WORKS SECTION */
 .how-it-works {
   padding: 30px 15px;
   text-align: center;
@@ -240,7 +233,6 @@ nav a {
   color: #333;
 }
 
-/* THERAPIST PREVIEW SECTION */
 .therapist-preview {
   padding: 40px 20px;
   text-align: center;
@@ -319,23 +311,108 @@ footer {
   padding: 20px 0;
 }
 
-.contact-right form{
-    width: 100%;;
+.contact-right form {
+  width: 100%;
 }
-form input, form textarea{
-    width: 100%;
-    border: 0;
-    outline: none;
-    background: #262626;
-    padding: 15px;
-    margin: 15px 0;
-    color: #fff;
-    font-size: 18px;
-    border-radius: 6px;
+
+form input,
+form textarea {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: #262626;
+  padding: 15px;
+  margin: 15px 0;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 6px;
 }
-form .btn2{
-    padding: 14px 60px;
-    font-size: 18px;
+
+form .btn2 {
+  padding: 14px 60px;
+  font-size: 18px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+
+@media screen and (max-width: 992px) {
+  .header-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  .buttons {
+    justify-content: center;
+    margin-top: 15px;
+    gap: 10px;
+  }
+  .hero-banner {
+    padding: 80px 5%;
+    max-width: 90%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-text {
+    flex: 1 1 100%;
+  }
+  .hero-img {
     margin-top: 20px;
-    cursor: pointer;
+    flex: 1 1 100%;
+  }
+  .hero-img img {
+    max-width: 90%;
+  }
+  .steps-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .logo h1 {
+    font-size: 1.8rem;
+  }
+  nav ul {
+    gap: 8px;
+  }
+  .buttons .btn {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+  .hero-text h1 {
+    font-size: 1.8rem;
+  }
+  .about h2,
+  .how-it-works h2,
+  .therapist-preview h2 {
+    font-size: 1.5rem;
+  }
+  .step,
+  .card {
+    max-width: 100%;
+    width: 100%;
+  }
+  .hero-banner {
+    padding: 60px 3%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .buttons {
+    flex-direction: column;
+  }
+  .buttons .btn {
+    width: 100%;
+    text-align: center;
+  }
 }

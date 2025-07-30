@@ -27,10 +27,10 @@ const userSchema = new mongoose.Schema({
   },
 
   
-  budget: {
-    type: String,
-    default: ''
-  },
+  // budget: {
+  //   type: String,
+  //   default: ''
+  // },
 
 
   qualifications: {
@@ -46,6 +46,12 @@ const userSchema = new mongoose.Schema({
   profilePicture: {
     type: String, 
     default: null,
+  },
+
+  bio: {
+    type: String,
+    maxlength: 500,
+    default: ''
   },
 
   createdAt: {

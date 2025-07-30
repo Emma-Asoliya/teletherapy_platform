@@ -69,9 +69,6 @@
       <!-- Client-Specific Fields -->
       <div id="client-fields" class="hidden">
         <div class="input-box">
-          <input type="text" id="budget" name="budget" placeholder="Budget Range (e.g., 40,000 - 80,000 RWF)" />
-        </div>
-        <div class="input-box">
           <label for="clientPicture">Profile Picture</label>
           <input type="file" id="clientPicture" name="profilePicture" accept="image/*" />
         </div>
@@ -99,6 +96,7 @@
     </form>
   </div>
 
+<div id="toast" class="toast"></div>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -107,7 +105,7 @@
     const clientFields = document.getElementById('client-fields');
     const therapistFields = document.getElementById('therapist-fields');
 
-    roleSelect.addEventListener('change', () => {
+    function toggleRoleFields() {
       clientFields.classList.add('hidden');
       therapistFields.classList.add('hidden');
 
@@ -116,11 +114,22 @@
       } else if (roleSelect.value === 'therapist') {
         therapistFields.classList.remove('hidden');
       }
-    });
+    }
+
+    roleSelect.addEventListener('change', toggleRoleFields);
+    toggleRoleFields(); // Run once on page load to reflect default selection
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = "show";
+      setTimeout(() => {
+        toast.className = toast.className.replace("show", "");
+      }, 3000);
+    }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-
       const formData = new FormData(form);
 
       try {
@@ -130,24 +139,21 @@
         });
 
         const data = await res.json();
+        console.log('Signup response:', data);
 
-        if (!res.ok) {
-          alert(data.message || `Signup failed: ${data.message || 'Unknown error'}`);
+        if (!data.success) {
+          console.error('Signup failed:', data);
+          alert(data.message || "Signup failed. Please try again.");
           return;
         }
 
-       localStorage.setItem('authToken', data.token);
-       localStorage.setItem('user', JSON.stringify(data.user));
+        showToast("Account created successfully! Redirecting to login...");
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 3000);
 
-       alert('Signup successful! Redirecting...');
-
-       const redirectPage = data.user.role === 'therapist' 
-         ? 'therapist-dashboard.html' 
-         : 'dashboard.html';
-        window.location.href = redirectPage;
-
-      } catch (err) {
-        console.error('Signup error:', err);
+      } catch (error) {
+        console.error('Signup error:', error);
         alert('Something went wrong. Please try again.');
       }
     });

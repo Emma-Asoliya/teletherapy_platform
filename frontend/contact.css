@@ -1,0 +1,117 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background: beige;
+  color: #333;
+}
+
+.navbar {
+  background-color: #f9f9f9;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.navbar .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #0d7c6f;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #0d7c6f;
+}
+
+.navbar ul li a.active,
+.navbar ul li a:hover {
+  text-decoration: underline;
+}
+
+.contact-section {
+  padding: 4rem 10%;
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+.contact-section h1 {
+  font-size: 2.5rem;
+  color: #0d7c6f;
+  margin-bottom: 1rem;
+}
+
+.contact-section p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+#contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+#contactForm input,
+#contactForm textarea {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.btn {
+  padding: 0.8rem 1.6rem;
+  background-color: #4DB6AC;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0d7c6f;
+}
+
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #4DB6AC;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  font-weight: bold;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: #e4c52d;
+  font-size: 0.95rem;
+}

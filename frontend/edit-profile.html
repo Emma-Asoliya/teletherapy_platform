@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="edit-profile.css">
+</head>
+<body>
+  <h1>Edit Profile</h1>
+
+  <form id="editProfileForm" enctype="multipart/form-data">
+  <label>Name:</label>
+  <input type="text" name="name" id="name" required><br>
+
+  <label>Email:</label>
+  <input type="email" name="email" id="email" required><br>
+
+  <label>Bio:</label>
+  <textarea name="bio" id="bio"></textarea><br>
+
+  <label>Specializations (comma-separated):</label>
+  <input type="text" name="specializations" id="specializations"><br>
+
+  <label>Qualifications:</label>
+  <input type="text" name="qualifications" id="qualifications"><br>
+
+  <label>Profile Picture:</label>
+  <input type="file" name="profilePicture" id="profilePicture"><br>
+
+  <button type="submit">Update Profile</button>
+</form>
+
+<p id="updateMessage"></p>
+
+
+    
+  <script>
+  const token = localStorage.getItem('token');
+
+  document.getElementById('editProfileForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const form = document.getElementById('editProfileForm');
+    const formData = new FormData(form);
+
+    // Optional: Convert specializations to comma-separated string
+    const specs = formData.get('specializations');
+    if (specs) {
+      formData.set('specializations', specs.split(',').map(s => s.trim()).join(','));
+    }
+
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/update-profile', {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        body: formData
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message);
+
+      alert('Profile updated successfully!');
+      window.location.href = 'therapist-dashboard.html';
+    } catch (err) {
+      alert(`Error: ${err.message}`);
+    }
+  });
+</script>
+
+</body>
+</html>

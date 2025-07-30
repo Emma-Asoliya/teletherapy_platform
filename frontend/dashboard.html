@@ -1,109 +1,450 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Client Dashboard | UnMutedMinds</title>
-  <link rel="stylesheet" href="dashboard.css" />
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-</head>
-<body>
-  <header class="navbar">
-    <div class="logo">UnMutedMinds</div>
-    <nav>
-      <ul>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-        <li><button id="logoutBtn" class="logout">Logout</button></li>
-      </ul>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client Dashboard | UnMutedMinds</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="logo">UnMutedMinds</div>
+       <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu"></button>
+       <i class="bx bx-menu"></i>
+      <nav>
+        <ul>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><button id="logoutBtn" class="logout">Logout</button></li>
+        </ul>
+      </nav>
+    </header>
 
-  <main class="dashboard-main">
-    <section class="welcome">
-      <h1>Welcome, <span id="userName"></span>!</h1>
-      <p>Your role: <span id="userRole"></span> | Email: <span id="userEmail"></span></p>
-    </section>
-
-    <section class="therapist-section">
-      <h2>Available Therapists</h2>
-      <div class="therapist-grid">
-        
-        <!-- Example therapist card -->
-        <div class="therapist-card">
-          <img src="images/therapist 1.jpg" alt="Therapist" />
-          <h3>Mrs Florence</h3>
-          <p><b>Specialization:</b> Child Therapy, PTSD</p>
-          <button class="book-btn">Book Appointment</button>
+    <main class="dashboard-main">
+      <section class="welcome">
+        <div class="profile-summary">
+          <img
+            src=""
+            alt="Profile Picture"
+            class="profile-pic"
+            id="userPhoto"
+          />
         </div>
-        <div class="therapist-card">
-          <img src="images/therapist2.jpg" alt="Therapist" />
-          <h3>Mr Stanley</h3>
-          <p><b>Specialization:</b> Marriage and Relationships, Youth Mental Health</p>
-          <button class="book-btn">Book Appointment</button>
+        <div class="profile-details">
+          <h1>Welcome, <span id="userName"></span>!</h1>
+          <p>
+            Your role: <span id="userRole"></span> | Email:
+            <span id="userEmail"></span>
+          </p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="edit-profile">
-      <h2>Edit Your Profile</h2>
-      <form id="edit-profile-form">
-        <input type="text" id="editName" name="name" placeholder="Update Name" required />
-        <input type="email" id="editEmail" name="email" placeholder="Update Email" required />
-        <input type="text" id="editBudget" name="budget" placeholder="Update Budget (optional)" />
-        <input type="file" name="profilePicture" accept="image/*" />
-        <button type="submit">Save Changes</button>
-      </form>
-    </section>
-  </main>
+      <section class="therapist-section">
+        <h2>Available Therapists</h2>
+        <div class="therapist-grid">
+          <!-- Therapist cards with data- attributes to identify therapist -->
+          <div class="therapist-card" data-therapist-id="therapist1">
+            <img src="images/therapist 1.jpg" alt="Therapist" />
+            <h3>Mrs Florence</h3>
+            <p><b>Specialization:</b> Child Therapy, PTSD</p>
+            <button class="book-btn">Book Appointment</button>
+          </div>
+          <div class="therapist-card" data-therapist-id="therapist2">
+            <img src="images/therapist2.jpg" alt="Therapist" />
+            <h3>Mr Stanley</h3>
+            <p>
+              <b>Specialization:</b> Marriage and Relationships, Youth Mental
+              Health
+            </p>
+            <button class="book-btn">Book Appointment</button>
+          </div>
+          <div class="therapist-card" data-therapist-id="therapist3">
+            <img src="images/therapist2.jpg" alt="Therapist" />
+            <h3>Mr Stanley</h3>
+            <p>
+              <b>Specialization:</b> Marriage and Relationships, Youth Mental
+              Health
+            </p>
+            <button class="book-btn" dataid="">Book Appointment</button>
+          </div>
+        </div>
+      </section>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        alert('Unauthorized access');
-        window.location.href = 'login.html';
-        return;
-      }
+      <section class="appointments-section">
+        <h2>My Appointments</h2>
+        <div id="appointmentsList" class="appointments-list"></div>
+      </section>
 
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      console.log('Token payload:', payload);
-      document.getElementById('userName').textContent = payload.name;
-      document.getElementById('userRole').textContent = payload.role || 'N/A';
-      document.getElementById('userEmail').textContent = payload.email;
+      <section class="edit-profile">
+        <h2>Edit Your Profile</h2>
+        <form id="edit-profile-form" enctype="multipart/form-data">
+          <input
+            type="text"
+            id="editName"
+            name="name"
+            placeholder="Update Name"
+            required
+          />
+          <input
+            type="email"
+            id="editEmail"
+            name="email"
+            placeholder="Update Email"
+            required
+          />
+          <label for="bio">Short Bio:</label>
+    <textarea
+      id="bio"
+      name="bio"
+      maxlength="500"
+      rows="4"
+      placeholder="Tell others a bit about yourself..."
+    ></textarea>
 
-     document.getElementById('logoutBtn').addEventListener('click', () => {
-       localStorage.removeItem('token');
-       window.location.href = 'login.html';
-     });
+          <input type="file" name="profilePicture" accept="image/*" />
+          <button type="submit">Save Changes</button>
+        </form>
+      </section>
 
-      document.getElementById('edit-profile-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        alert('Profile update functionality is under development.');
-      });
+<div id="bookingModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeBookingModal">&times;</span>
+    <h2>Book Appointment</h2>
+    <form id="bookingForm">
+      <input type="hidden" id="therapistIdInput" />
+      <label for="appointmentDate">Select Date & Time:</label>
+      <input type="datetime-local" id="appointmentDate" name="appointmentDate" required />
+      <button type="submit" class="book-btn">Confirm Booking</button>
+    </form>
+  </div>
+</div>
 
-       function showToast(message) {
-    let toast = document.getElementById('toast');
+    </main>
+
+   <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("Unauthorized access");
+    window.location.href = "login.html";
+    return;
+  }
+
+  const payload = JSON.parse(atob(token.split(".")[1]));
+  console.log("Token payload:", payload);
+
+  document.getElementById("userName").textContent = payload.name || "Guest";
+  document.getElementById("userRole").textContent = payload.role || "N/A";
+  document.getElementById("bio").value = payload.bio || "";
+  document.getElementById("userEmail").textContent = payload.email;
+  document.getElementById("userPhoto").src = payload.profilePicture
+    ? `/uploads/${payload.profilePicture}`
+    : "images/default-profile.png";
+
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+  });
+
+  function showToast(message) {
+    let toast = document.getElementById("toast");
     if (!toast) {
-      toast = document.createElement('div');
-      toast.id = 'toast';
-      toast.className = 'toast';
+      toast = document.createElement("div");
+      toast.id = "toast";
+      toast.className = "toast";
       document.body.appendChild(toast);
     }
     toast.textContent = message;
-    toast.classList.add('show');
-    setTimeout(() => {
-      toast.classList.remove('show');
-    }, 3000);
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
   }
 
-  document.querySelectorAll('.book-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      showToast('Booking confirmed!');
-    });
+  document.getElementById("edit-profile-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/update-profile", {
+        method: "PUT",
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        showToast("Profile updated successfully!");
+        document.getElementById("userName").textContent = data.user.name;
+        document.getElementById("userEmail").textContent = data.user.email;
+        document.getElementById("userPhoto").src = data.user.profilePicture
+          ? `/uploads/${data.user.profilePicture}`
+          : "images/default-profile.png";
+      } else {
+        alert(data.message || "Update failed.");
+      }
+    } catch (err) {
+      console.error("Update failed:", err);
+      alert("Something went wrong during profile update.");
+    }
   });
+
+  function formatDateTime(dateTimeStr) {
+    const options = { dateStyle: "medium", timeStyle: "short" };
+    return new Date(dateTimeStr).toLocaleString(undefined, options);
+  }
+
+ function renderTherapists(therapists) {
+  const grid = document.querySelector(".therapist-grid");
+  if (!grid) return;
+  grid.innerHTML = "";
+
+  therapists.forEach((therapist) => {
+    const card = document.createElement("div");
+    card.className = "therapist-card";
+    card.setAttribute("data-therapist-id", therapist._id);
+
+    const photo = therapist.profilePicture
+      ? `/uploads/${therapist.profilePicture}`
+      : "images/default-profile.png";
+
+    const specs = Array.isArray(therapist.specializations)
+      ? therapist.specializations.join(", ")
+      : therapist.specializations || "N/A";
+
+    const quals = therapist.qualifications || "N/A";
+
+    card.innerHTML = `
+      <img src="${photo}" alt="Therapist" />
+      <h3>${therapist.name}</h3>
+      <p><b>Specializations:</b> ${specs}</p>
+      <p><strong>Qualifications:</strong> ${quals}</p>
+      <button class="book-btn">Book Session</button>
+    `;
+
+    const bookBtn = card.querySelector(".book-btn");
+    if (bookBtn) {
+      bookBtn.addEventListener("click", () => {
+        therapistIdInput.value = therapist._id;
+        bookingModal.style.display = "block";
+      });
+    }
+
+    grid.appendChild(card);
+  });
+}
+
+
+
+
+  async function fetchTherapists() {
+    try {
+      const res = await fetch("http://localhost:5000/api/appointments/therapists", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (!data.success) {
+        console.error("Failed to fetch therapists:", data.message);
+        return;
+      }
+      renderTherapists(data.therapists);
+    } catch (err) {
+      console.error("Error fetching therapists:", err);
+    }
+  }
+
+  function renderAppointments(appointments) {
+    const container = document.getElementById("appointmentsList");
+    if (!container) return;
+
+    container.innerHTML = appointments.length
+      ? ""
+      : "<p>No appointments found.</p>";
+
+    appointments.forEach((appt) => {
+      const card = document.createElement("div");
+      card.className = "appointment-card";
+
+      const therapistPhoto = appt.therapist?.profilePicture
+        ? `/uploads/${appt.therapist.profilePicture}`
+        : "images/default-profile.png";
+
+      card.innerHTML = `
+        <img src="${therapistPhoto}" alt="${appt.therapist?.name || "Therapist"}" />
+        <div class="appointment-details">
+          <h3>${appt.therapist?.name || "Therapist"}</h3>
+          <p>${formatDateTime(appt.time)}</p>
+        </div>
+        <div class="appointment-status status-upcoming">upcoming</div>
+      `;
+
+    const joinBtn = document.createElement("button");
+joinBtn.className = "join-btn";
+joinBtn.textContent = "Join Session";
+
+joinBtn.addEventListener("click", () => {
+  const clientId = payload.id;
+  const therapistId = appt.therapist?._id;
+  const roomName = `unmutedminds-${clientId}_${therapistId}`;
+  window.location.href = `session.html?room=${encodeURIComponent(roomName)}`;
+});
+
+card.appendChild(joinBtn);
+
+
+      const rescheduleBtn = document.createElement("button");
+      rescheduleBtn.className = "reschedule-btn";
+      rescheduleBtn.textContent = "Reschedule";
+      rescheduleBtn.style.marginLeft = "10px";
+      rescheduleBtn.addEventListener("click", async () => {
+        const newDateTimeStr = prompt("Enter new date and time (YYYY-MM-DD HH:mm):");
+        if (!newDateTimeStr) return;
+
+        const newDateTime = new Date(newDateTimeStr);
+        if (isNaN(newDateTime.getTime())) {
+          alert("Invalid date/time format. Please try again.");
+          return;
+        }
+
+        try {
+          const res = await fetch(`http://localhost:5000/api/appointments/${appt._id}/reschedule`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ newTime: newDateTime.toISOString() }),
+          });
+          const data = await res.json();
+
+          if (data.success) {
+            showToast("Appointment rescheduled successfully!");
+            fetchAndRenderAppointments();
+          } else {
+            alert(data.message || "Failed to reschedule.");
+          }
+        } catch (err) {
+          console.error("Reschedule error:", err);
+          alert("Error while rescheduling appointment.");
+        }
+      });
+      card.appendChild(rescheduleBtn);
+
+      const cancelBtn = document.createElement("button");
+      cancelBtn.className = "cancel-btn";
+      cancelBtn.textContent = "Cancel";
+      cancelBtn.style.marginLeft = "10px";
+      cancelBtn.addEventListener("click", async () => {
+        const confirmed = confirm("Are you sure you want to cancel this appointment?");
+        if (!confirmed) return;
+
+        try {
+          const res = await fetch(`http://localhost:5000/api/appointments/${appt._id}/cancel`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          const data = await res.json();
+
+          if (data.success) {
+            showToast("Appointment cancelled successfully!");
+            fetchAndRenderAppointments();
+          } else {
+            alert(data.message || "Failed to cancel appointment.");
+          }
+        } catch (err) {
+          console.error("Cancel error:", err);
+          alert("Error while cancelling appointment.");
+        }
+      });
+      card.appendChild(cancelBtn);
+
+      container.appendChild(card);
     });
-  </script>
-</body>
+  }
+
+  // Fetch and render appointments
+  async function fetchAndRenderAppointments() {
+    try {
+      const res = await fetch("http://localhost:5000/api/appointments/client", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message);
+
+      renderAppointments(data.appointments);
+    } catch (err) {
+      console.error("Fetch appointments error:", err);
+      renderAppointments([]);
+    }
+  }
+
+  // Booking modal handlers
+  const bookingModal = document.getElementById("bookingModal");
+  const closeBookingModalBtn = document.getElementById("closeBookingModal");
+  const bookingForm = document.getElementById("bookingForm");
+  const therapistIdInput = document.getElementById("therapistIdInput");
+
+  closeBookingModalBtn.addEventListener("click", () => {
+    bookingModal.style.display = "none";
+    bookingForm.reset();
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === bookingModal) {
+      bookingModal.style.display = "none";
+      bookingForm.reset();
+    }
+  });
+
+  bookingForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const therapistId = therapistIdInput.value;
+    const appointmentDate = document.getElementById("appointmentDate").value;
+
+    if (!appointmentDate) {
+      alert("Please select date and time.");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/api/appointments/book", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          therapist: therapistId,
+          time: new Date(appointmentDate).toISOString(),
+          sessionType: "Therapy Session",
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        showToast("Appointment booked successfully!");
+        fetchAndRenderAppointments();
+        bookingModal.style.display = "none";
+        bookingForm.reset();
+      } else {
+        alert(data.message || "Failed to book appointment.");
+      }
+    } catch (error) {
+      console.error("Booking error:", error);
+      alert("Error booking appointment.");
+    }
+  });
+
+  fetchTherapists();
+  fetchAndRenderAppointments();
+});
+</script>
+
+
+  </body>
 </html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Therapist Dashboard | UnMutedMinds</title>
+<link rel="stylesheet" href="therapist-dashboard.css">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">UnMutedMinds</div>
+    <nav>
+      <ul>
+        <li><a href="therapist-dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="edit-profile.html">Profile</a></li>
+        <li><a href="#" id="logoutBtn">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="dashboard-container">
+   
+    <section class="welcome-section">
+        <div class="profile-summary">
+  <img id="therapistPhoto" src="images/background.jpg" alt="Profile Picture" class="profile-pic"/>
+  
+  <div class="profile-details">
+    <h1>Welcome, <span id="userName">Therapist</span>!</h1>
+    <p>Email: <span id="userEmail"></span></p>
+    <p>Your role: <span id="userRole"></span></p>
+  </section>
+  </div>
+</div>
+
+    <section class="appointments-section">
+      <h2>Upcoming Appointments</h2>
+      <div id="appointments-list">
+
+        <div class="appointment-card">
+          <p><strong>Client:</strong> John Doe</p>
+          <p><strong>Time:</strong> July 28, 3:00 PM</p>
+          <button class="btn-join">Join Session</button>
+        </div>
+        <div class="appointment-card">
+          <p><strong>Client:</strong> Amina M.</p>
+          <p><strong>Time:</strong> July 30, 10:00 AM</p>
+         <a href="session.html" class="btn-join">Join Session</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="profile-bio">
+      <p><strong>Name:</strong> <span id="profileName">...</span></p>
+      <p><strong>Specializations:</strong> <span id="profileSpecs">...</span></p>
+      <p><strong>Qualifications:</strong> <span id="profileQuals">...</span></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 UnMutedMinds. All rights reserved.</p>
+  </footer>
+
+>
+ <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Unauthorized access');
+      window.location.href = 'login.html';
+      return;
+    }
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    console.log('Decoded token payload:', payload);
+
+
+    document.getElementById('userName').textContent = payload.name || 'Therapist';
+    document.getElementById('userRole').textContent = payload.role || 'N/A';
+    document.getElementById('userEmail').textContent = payload.email || '';
+
+    const profilePicture = document.getElementById('therapistPhoto');
+    if (payload.profilePicture && profilePicture) {
+      profilePicture.src = `http://localhost:5000/uploads/${payload.profilePicture}`;
+    }
+
+    document.getElementById('profileName').textContent = payload.name || '';
+    document.getElementById('profileSpecs').textContent = payload.specializations?.join(', ') || 'N/A';
+    document.getElementById('profileQuals').textContent = payload.qualifications || 'N/A';
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      window.location.href = 'login.html';
+    });
+
+    async function loadAppointments() {
+      const container = document.getElementById('appointments-list');
+      container.innerHTML = '';
+
+      try {
+        const res = await fetch('http://localhost:5000/api/appointments/therapist', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.message || 'Failed to fetch appointments');
+
+        const appointments = data.appointments;
+
+        if (!appointments || appointments.length === 0) {
+          container.innerHTML = '<p>No upcoming appointments.</p>';
+          return;
+        }
+
+        appointments.forEach(app => {
+          const card = document.createElement('div');
+          card.className = 'appointment-card';
+
+          const timeFormatted = new Date(app.time).toLocaleString();
+
+          card.innerHTML = `
+            <p><strong>Client:</strong> ${app.client?.name || 'Unknown Client'}</p>
+            <p><strong>Time:</strong> ${timeFormatted}</p>
+            <p><strong>Session:</strong> ${app.sessionType || 'Therapy Session'}</p>
+            <div class="appointment-actions">
+                <button class="join-btn">Join Session</button>
+                <button class="reschedule-btn" data-id="${app._id}">Reschedule</button>
+                <button class="cancel-btn" data-id="${app._id}">Cancel</button>
+            </div>
+          `;
+
+          const joinBtn = card.querySelector('.join-btn');
+          const rescheduleBtn = card.querySelector('.reschedule-btn');
+          const cancelBtn = card.querySelector('.cancel-btn');
+
+          joinBtn.addEventListener('click', () => {
+            const roomName = `unmutedminds-${app._id}`;
+            const jitsiURL = `https://meet.jit.si/${roomName}`;
+            window.open(jitsiURL, '_blank');
+          });
+
+         rescheduleBtn.addEventListener('click', async () => {
+  const newTime = prompt('Enter new time (YYYY-MM-DD HH:MM):');
+
+  if (!newTime) return;
+
+  try {
+    const res = await fetch(`http://localhost:5000/api/appointments/${app._id}/reschedule`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ newTime })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.message || 'Failed to reschedule');
+    
+    alert('Appointment rescheduled successfully!');
+    loadAppointments(); 
+  } catch (err) {
+    alert(`Error: ${err.message}`);
+  }
+});
+
+
+         cancelBtn.addEventListener('click', async () => {
+  const confirmDelete = confirm('Are you sure you want to cancel this appointment?');
+
+  if (!confirmDelete) return;
+
+  try {
+    const res = await fetch(`http://localhost:5000/api/appointments/${app._id}/cancel`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.message || 'Failed to cancel appointment');
+    
+    alert('Appointment cancelled successfully.');
+    loadAppointments(); 
+  } catch (err) {
+    alert(`Error: ${err.message}`);
+  }
+});
+
+
+          container.appendChild(card);
+        });
+
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = `<p class="error">Error loading appointments: ${err.message}</p>`;
+      }
+    }
+
+    loadAppointments();
+  });
+</script>
+
+
+</body>
+</html>

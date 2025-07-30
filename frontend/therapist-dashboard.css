@@ -1,0 +1,220 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: beige;
+  color: #333;
+  min-height: 100vh;
+}
+
+.navbar {
+  background-color: #f9f9f9;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.navbar .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #0d7c6f;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #0d7c6f;
+}
+
+.navbar ul li a:hover,
+.navbar ul li a.active {
+  text-decoration: underline;
+}
+
+.dashboard-container {
+  padding: 2rem 10%;
+}
+
+.dashboard-header {
+  margin-bottom: 2rem;
+
+}
+
+
+.dashboard-header h1 {
+  font-size: 2.2rem;
+  color: #0d7c6f;
+  margin-bottom: 0.5rem;
+  
+}
+
+.dashboard-header p {
+  font-size: 1.1rem;
+}
+
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  border: 3px solid #0d7c6f;
+  aspect-ratio: 1 / 1;
+  display: block;
+}
+
+
+.appointments-section {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+  margin-top: 20px;
+}
+
+.appointments-section h2 {
+  font-size: 1.5rem;
+  color: #0d7c6f;
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+
+.appointment-card {
+  border: 1px solid #ad4545;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  background-color: #f5fefc;
+}
+
+.appointment-card strong {
+  color: #0c7066;
+}
+.appointment-card p {
+  margin: 0.5rem 0;
+}
+
+.appointment-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.btn-join, .reschedule-btn, .cancel-btn {
+  background-color: #4DB6AC;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.join-btn {
+  background-color: #4DB6AC;
+  color: white;
+}
+
+.reschedule-btn {
+  background-color: #f0ad4e;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #d9534f;
+  color: white;
+}
+
+.join-btn:hover {
+  background-color: #0d7c6f;
+}
+
+.reschedule-btn:hover {
+  background-color: #ec971f;
+}
+
+.cancel-btn:hover {
+  background-color: #c9302c;
+}
+
+.profile-summary {
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  max-width: 800px;
+  margin-bottom: auto;
+}
+
+.profile-details {
+  margin-left: 1.5rem;
+  font: 1;
+}
+
+.profile-summary h3 {
+  color: #0d7c6f;
+  margin-bottom: 0.8rem;
+}
+
+.logout-btn {
+  padding: 10px 20px;
+  background-color: #4DB6AC;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+}
+
+.logout-btn:hover {
+  background-color: #0d7c6f;
+}
+
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #4DB6AC;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  font-weight: bold;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #e4c52d;
+  font-size: 0.95rem;
+  margin-top: auto;
+}

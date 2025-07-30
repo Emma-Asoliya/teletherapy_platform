@@ -11,7 +11,7 @@ const auth = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // You can access `req.user` in protected routes
+    req.user = decoded; 
     next();
   } catch (err) {
     console.error('Token verification error:', err);
