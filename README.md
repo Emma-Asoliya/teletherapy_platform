@@ -1,19 +1,18 @@
 #  UnMutedMinds – Teletherapy Platform for Mental Wellness
 
-Welcome to **UnMutedMinds**, a web-based teletherapy platform designed to bridge the gap between **mental health support** and **accessibility** for young people. Whether you're a **therapist** offering your services or a **client** looking for guidance, UnMutedMinds creates a safe, welcoming, and easy-to-use environment to connect and heal.
+Welcome to **UnMutedMinds**, a web-based teletherapy platform designed to bridge the gap between **mental health support** and **accessibility** for young people. Whether you're a therapist offering your services or a client seeking guidance, UnMutedMinds creates a safe, welcoming, and user-friendly environment to connect and heal.
 
----
 
 ##  The Story Behind UnMutedMinds
 
-Mental health challenges among youth, especially in African communities, often go **unspoken** due to stigma, cost, or lack of access. UnMutedMinds was created to **break the silence**. It functions like a matchmaking platform — but instead of dates, we match **clients with therapists** based on needs, specializations, and availability.
+Mental health challenges among youth, especially in African communities, often go **unspoken** due to stigma, cost, or lack of access. UnMutedMinds was created to **break the silence**. It functions like a matchmaking platform — but instead of dates, we match clients with therapists based on their needs, specializations, and availability.
 
 The platform is centered on:
 - **Anonymity where needed**
 - **Simplicity and user empowerment**
 - **Affordable and accessible teletherapy**
 
----
+
 
 ##  How to Use UnMutedMinds (User Guide)
 
@@ -55,7 +54,7 @@ Once deployed, users can visit the platform in any modern browser.
 ###  7. Navigation
 - The **About Us** and **Contact Us** pages are accessible from the top navigation menu — both before and after login.
 
----
+
 
 ##  Tech Stack
 
@@ -71,22 +70,21 @@ UnMutedMinds is built with a modern and clean web stack:
 | Video Sessions   | Jitsi Meet API                   |
 | Deployment Ready | Yes (Render, Vercel, Heroku)     |
 
----
+
 
 ##  Future Features
 
 We plan to extend UnMutedMinds with:
-- ✅ In-app messaging between clients and therapists
-- ✅ Session reminders via email or SMS
-- ✅ Therapist availability calendar
-- ✅ Payment integration for paid sessions
-- ✅ Admin dashboard for moderation and analytics
-- ✅ Multilingual support for regional users
+-  In-app messaging between clients and therapists
+-  Session reminders via email or SMS
+-  Therapist availability calendar
+-  Payment integration for paid sessions
+-  Admin dashboard for moderation and analytics
+-  Multilingual support for regional users
 
----
+
 
 ##  Why UnMutedMinds Matters
 
 This app is more than a product — it’s a movement to empower young people to speak up, get help, and prioritize their mental health. By merging **technology**, **storytelling**, and **accessibility**, UnMutedMinds makes wellness support **visible, valuable, and impactful**.
 
----
