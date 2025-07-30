@@ -1,4 +1,5 @@
-##UnMutedMinds Teletherapy Web App
+## UnMutedMinds Teletherapy Web App
+
 A teletherapy platform connecting clients and therapists with appointment booking, profiles, and video sessions.
  
 ## Table of Contents
