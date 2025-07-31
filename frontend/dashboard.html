@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function fetchTherapists() {
     try {
-      const res = await fetch("https://unmutedminds.onrender.comapi/appointments/therapists", {
+      const res = await fetch("https://unmutedminds.onrender.com/api/appointments/therapists", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
