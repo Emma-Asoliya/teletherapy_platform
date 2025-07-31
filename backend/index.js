@@ -13,10 +13,24 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const frontendPath = path.join(__dirname, '../frontend');
 
+const allowedOrigins = [
+  'https://unmutedminds.netlify.app',
+  'https://teletherapy-platform.onrender.com'
+];
+
 app.use(cors({
-  origin: 'https://unmutedminds.netlify.app',
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true); 
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS policy: Origin not allowed'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true 
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -36,15 +50,15 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
-//app.get('*', (req, res, next) => {
-//  if (req.path.startsWith('/api')) return next();
-  //res.sendFile(path.join(frontendPath, 'index.html'), (err) => {
-    //if (err) {
-      //console.error('Failed to send index.html:', err);
-      //res.status(500).send('Frontend not found');
-    //}
-  //});
-//});
+// app.get('*', (req, res, next) => {
+//   if (req.path.startsWith('/api')) return next();
+//   res.sendFile(path.join(frontendPath, 'index.html'), (err) => {
+//     if (err) {
+//       console.error('Failed to send index.html:', err);
+//       res.status(500).send('Frontend not found');
+//     }
+//   });
+// });
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
