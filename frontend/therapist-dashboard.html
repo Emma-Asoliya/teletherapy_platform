@@ -178,7 +178,7 @@
   if (!confirmDelete) return;
 
   try {
-    const res = await fetch(`https://unmutedminds.onrender.com/api/appointments/${app._id}/cancel`, {
+    const res = await fetch(`https://teletherapy-platform.onrender.com/api/appointments/${app._id}/cancel`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`
