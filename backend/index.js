@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
 const cors = require('cors');
+const fs = require('fs');
+
 
 const authRoutes = require('./routes/auth');
 const contactRoutes = require('./routes/contact');
@@ -13,9 +15,16 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const frontendPath = path.join(__dirname, '../frontend');
 
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
 const allowedOrigins = [
   'https://unmutedminds.netlify.app',
-  'https://teletherapy-platform.onrender.com'
+  'https://teletherapy-platform.onrender.com',
+  'http://localhost:5500',
+  'http://127.0.0.1:5500'
 ];
 
 app.use(cors({
