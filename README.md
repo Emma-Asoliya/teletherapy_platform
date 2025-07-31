@@ -18,117 +18,73 @@ Welcome to UnMutedMinds, a web-based teletherapy platform designed to bridge the
 
 Follow the steps below to run the app locally on your machine.
 
-###  1. Clone the Repository
+###  1. Sign Up as a Therapist or Client
+- **Therapists** register with their name, qualifications, specializations, and a profile picture.
+- **Clients** sign up with their basic info, a profile photo, and an optional bio.
 
-```bash
-git clone https://github.com/Emma-Asoliya/teletherapy_platform.git
-```
+###  2. Log In
+- Use your email and password to securely log in.
+- A token-based login system ensures secure and persistent sessions.
 
----
+###  3. Dashboard Access
+- After login, users are redirected to a **role-specific dashboard**:
+  - **Clients** see a list of available therapists and their profiles.
+  - **Therapists** see a list of booked appointments and client info.
 
-### 2. Setup the Backend
+###  4. Booking Appointments
+- Clients can:
+  - Browse therapists
+  - Book appointments
+  - View upcoming sessions
+  - Reschedule or cancel if needed
+  - Join a live video session when it’s time (powered by Jitsi)
 
-```bash
-cd backend
-npm install
-```
+- Therapists can:
+  - View client appointment requests
+  - Join sessions
+  - Cancel or reschedule appointments
 
-Create a `.env` file inside `/backend` directory and add the following:
+###  5. Edit Your Profile
+- Both roles can update their personal details, profile picture, and short bio from the dashboard.
 
-```env
-MONGO_URI=mongodb+srv://EmmanuellaB:c70LumEssoXnoAAJ@unmutedminds.bocnyte.mongodb.net/?retryWrites=true&w=majority&appName=UnMutedMinds
-PORT=5000
-JWT_SECRET=yourjwtsecret
-```
+###  6. Live Sessions
+- When it’s time, users can click **“Join Session”** and enter a secure video call room.
+- Sessions are browser-based and powered by **Jitsi Meet** (no software install required).
 
-Then, start the backend server:
+###  7. Navigation
+- The **About Us** and **Contact Us** pages are accessible from the top navigation menu — both before and after login.
 
-```bash
-npm start
-```
 
-The backend will run at: `http://localhost:5000`
 
----
+##  Tech Stack
 
-###  3. Setup the Frontend
+UnMutedMinds is built with a modern and clean web stack:
 
-```bash
-cd ../frontend
-```
+| Layer            | Technology Used                  |
+|------------------|----------------------------------|
+| Frontend         | HTML5, CSS3, JavaScript (Vanilla)|
+| Backend          | Node.js, Express.js              |
+| Database         | MongoDB (Mongoose ODM)           |
+| Authentication   | JWT (JSON Web Tokens)            |
+| File Uploads     | Multer for profile images        |
+| Video Sessions   | Jitsi Meet API                   |
+| Deployment Ready | Yes (Render, Vercel, Heroku)     |
 
-You can now open `index.html` with **Live Server** or serve the frontend manually:
 
-- VS Code Live Server Extension
-- Or open `http://127.0.0.1:5500/frontend/index.html`
 
-> Make sure your backend is running before interacting with the frontend.
+##  Future Features
 
----
+We plan to extend UnMutedMinds with:
+-  In-app messaging between clients and therapists
+-  Session reminders via email or SMS
+-  Therapist availability calendar
+-  Payment integration for paid sessions
+-  Admin dashboard for moderation and analytics
+-  Multilingual support for regional users
 
-###  Folder Overview
 
-```
-teletherapy_platform/
-├── backend/
-│   ├── routes/
-│   ├── models/
-│   ├── middleware/
-│   ├── uploads/
-│   └── index.js
-├── frontend/
-│   ├── dashboard.html
-│   ├── therapist-dashboard.html
-│   ├── login.html
-│   ├── signup.html
-│   ├── about.html, contact.html...
-│   └── assets (CSS/JS/Images)
-```
 
----
+##  Why UnMutedMinds Matters
 
-###  Authentication Flow
+This app is more than a product — it’s a movement to empower young people to speak up, get help, and prioritize their mental health. By merging **technology**, **storytelling**, and **accessibility**, UnMutedMinds makes wellness support **visible, valuable, and impactful**.
 
-- Users select a role (client or therapist) during signup.
-- After login, JWT token is stored in `localStorage`.
-- Token is used to access role-specific dashboard and APIs.
-
----
-
-###  File Upload Handling
-
-- User profile pictures are uploaded and stored in `/uploads`
-- Files are served from backend using Express static route
-
----
-
-###  Core Features
-
-- Role-based dashboards
-- Therapist profiles (with specializations & qualifications)
-- Appointment booking & rescheduling
-- Jitsi video conferencing
-- Profile editing with photo upload
-- Secure login & signup
-
----
-
-###  Future Features
-
-- Therapist availability calendar
-- Chat/messaging between client & therapist
-- Payments or session credits
-- Admin panel for session analytics
-- Push/email notifications
-
----
-
-###  Notes
-
-- MongoDB must be running locally or use Atlas for production
-- Profile images will be stored in the backend `/uploads` directory
-- Jitsi uses public server by default (`https://meet.jit.si`)
-
----
-
-© 2025 UnMutedMinds. All rights reserved.
