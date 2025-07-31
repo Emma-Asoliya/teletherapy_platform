@@ -117,7 +117,7 @@
     }
 
     roleSelect.addEventListener('change', toggleRoleFields);
-    toggleRoleFields(); // Run once on page load to reflect default selection
+    toggleRoleFields();
 
     function showToast(message) {
       const toast = document.getElementById('toast');
@@ -130,7 +130,26 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const formData = new FormData(form);
+
+      // Manually control which profilePicture field to append
+      const formData = new FormData();
+      formData.append("name", document.getElementById("name").value);
+      formData.append("email", document.getElementById("email").value);
+      formData.append("password", document.getElementById("password").value);
+      formData.append("gender", document.getElementById("gender").value);
+      formData.append("dob", document.getElementById("dob").value);
+      formData.append("role", roleSelect.value);
+
+      if (roleSelect.value === "therapist") {
+        formData.append("qualifications", document.getElementById("qualifications").value);
+        formData.append("specializations", document.getElementById("specializations").value);
+
+        const pic = document.getElementById("therapistPicture").files[0];
+        if (pic) formData.append("profilePicture", pic);
+      } else if (roleSelect.value === "client") {
+        const pic = document.getElementById("clientPicture").files[0];
+        if (pic) formData.append("profilePicture", pic);
+      }
 
       try {
         const res = await fetch('https://unmutedminds.onrender.com/api/auth/signup', {
@@ -141,16 +160,14 @@
         const data = await res.json();
         console.log('Signup response:', data);
 
-if (!data.success) {
-  console.error('Signup failed:', data);
-  alert(data.message || "Signup failed. Please try again.");
-  return;
-}
+        if (!data.success) {
+          console.error('Signup failed:', data);
+          alert(data.message || "Signup failed. Please try again.");
+          return;
+        }
 
-alert("Account created successfully!");
-window.location.href = 'login.html';
-
-
+        alert("Account created successfully!");
+        window.location.href = 'login.html';
 
       } catch (error) {
         console.error('Signup error:', error);
@@ -159,6 +176,7 @@ window.location.href = 'login.html';
     });
   });
 </script>
+
 
 
 </body>
