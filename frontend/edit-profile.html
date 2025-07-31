@@ -44,7 +44,6 @@
     const form = document.getElementById('editProfileForm');
     const formData = new FormData(form);
 
-    // Optional: Convert specializations to comma-separated string
     const specs = formData.get('specializations');
     if (specs) {
       formData.set('specializations', specs.split(',').map(s => s.trim()).join(','));

@@ -188,7 +188,7 @@ router.get('/therapists', async (req, res) => {
   }
 });
 
-const resetToken = new Map();
+const resetTokens = new Map();
 router.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
 
@@ -200,22 +200,17 @@ router.post('/forgot-password', async (req, res) => {
     if (!user)
       return res.status(404).json({ success: false, message: 'No user with that email' });
 
-    // Generate reset token (random string)
     const token = crypto.randomBytes(32).toString('hex');
-    const expires = Date.now() + 3600 * 1000; // 1 hour expiry
+    const expires = Date.now() + 3600 * 1000; 
 
-    // Store token and expiry — for production use DB or Redis
     resetTokens.set(token, { userId: user._id.toString(), expires });
 
-    // Here you would send email with link like:
-    // `http://yourfrontend.com/reset-password?token=${token}`
-    // For now just return token in response (for testing)
     console.log(`Password reset token for ${email}: ${token}`);
 
     res.json({
       success: true,
       message: 'Password reset link sent to your email (simulated)',
-      token, // REMOVE this in production for security!
+      token,
     });
   } catch (err) {
     console.error('Forgot password error:', err);
