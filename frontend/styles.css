@@ -416,3 +416,48 @@ form .btn2 {
     text-align: center;
   }
 }
+
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #080306;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  background: none;
+  border: none;
+  
+}
+
+@media screen and (max-width: 768px) {
+  nav ul {
+    display: none;
+    flex-direction: column;
+    background-color: #fff;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    z-index: 1000;
+  }
+
+  nav ul.show {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  .buttons {
+    display: none; 
+  }
+}
+
