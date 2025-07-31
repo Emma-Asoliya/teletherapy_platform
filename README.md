@@ -134,7 +134,7 @@ Then open `http://localhost:5000` in your browser.
 
 **Emmanuella Briggs**  
 Frontend & Backend Developer | UI Designer  
- emmanuella@example.com (replace with real one)  
- Rwanda
+e.briggs@alustudent.com 
+
 
 ---
