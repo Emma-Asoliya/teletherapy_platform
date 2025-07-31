@@ -273,7 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
       card.className = "appointment-card";
 
       const therapistPhoto = appt.therapist?.profilePicture
-        ? `/uploads/${appt.therapist.profilePicture}`
+        ? `https://unmutedminds.onrender.com/uploads/${appt.therapist.profilePicture}`
         : "images/default-profile.png";
 
       card.innerHTML = `

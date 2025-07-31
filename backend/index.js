@@ -16,7 +16,6 @@ const frontendPath = path.join(__dirname, '../frontend');
 app.use(cors({
   origin: 'https://unmutedminds.netlify.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
