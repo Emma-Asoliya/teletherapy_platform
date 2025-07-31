@@ -95,7 +95,7 @@ router.put('/:id/reschedule', verifyToken, async (req, res) => {
   }
 });
 
-router.delete('/:id', verifyToken, async (req, res) => {
+router.delete('/:id/cancel', verifyToken, async (req, res) => {
   const appointmentId = req.params.id;
 
   try {
