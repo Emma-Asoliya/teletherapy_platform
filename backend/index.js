@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000;
 const frontendPath = path.join(__dirname, '../frontend');
 
 app.use(cors({
-  origin: ['http://localhost:5500', 'http://127.0.0.1:5500'],
+  origin: 'https://unmutedminds.netlify.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
