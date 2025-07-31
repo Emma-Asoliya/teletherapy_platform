@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("bio").value = payload.bio || "";
   document.getElementById("userEmail").textContent = payload.email;
   document.getElementById("userPhoto").src = payload.profilePicture
-    ? `/uploads/${payload.profilePicture}`
+    ? payload.profilePicture
     : "images/default-profile.png";
 
   document.getElementById("logoutBtn").addEventListener("click", () => {
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("userName").textContent = data.user.name;
         document.getElementById("userEmail").textContent = data.user.email;
         document.getElementById("userPhoto").src = data.user.profilePicture
-          ? `/uploads/${data.user.profilePicture}`
+          ? data.user.profilePicture
           : "images/default-profile.png";
       } else {
         alert(data.message || "Update failed.");
@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
     card.setAttribute("data-therapist-id", therapist._id);
 
     const photo = therapist.profilePicture
-      ? `/uploads/${therapist.profilePicture}`
+      ? therapist.profilePicture
       : "images/default-profile.png";
 
     const specs = Array.isArray(therapist.specializations)

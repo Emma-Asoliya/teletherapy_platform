@@ -84,7 +84,7 @@
 
     const profilePicture = document.getElementById('therapistPhoto');
     if (payload.profilePicture && profilePicture) {
-      profilePicture.src = `https://teletherapy-platform.onrender.com/uploads/${payload.profilePicture}`;
+    profilePicture.src = payload.profilePicture || 'images/default-profile.png';
     }
 
     document.getElementById('profileName').textContent = payload.name || '';
