@@ -1,90 +1,140 @@
-#  UnMutedMinds – Teletherapy Web App
+# UnMutedMinds — Teletherapy Platform
 
-Welcome to UnMutedMinds, a web-based teletherapy platform designed to bridge the gap between mental health support and accessibility for young people. Whether you're a therapist offering your services or a client seeking guidance, UnMutedMinds creates a safe, welcoming, and user-friendly environment to connect and heal.
+**UnMutedMinds** is a full-stack web application designed to connect individuals (clients) with licensed therapists for virtual mental health support. The platform supports profile creation, therapist browsing, appointment scheduling, and secure video sessions.
+
+---
+
+## Live Demo
+
+[https://teletherapy-platform.onrender.com](https://teletherapy-platform.onrender.com)
+
+---
+
+## Key Features
+
+- **JWT Authentication** for secure login & signup
+- **Role-Based Dashboards** for Clients & Therapists
+- Profile Picture Upload & Bio Editing
+- Appointment Booking, Rescheduling, & Cancellation
+- **Integrated Video Sessions** via Jitsi
+- Contact Form with Backend Email Handling
+- Fully Responsive UI (Mobile & Desktop)
+
 ---
 
 ## Tech Stack
 
-- **Frontend:** HTML, CSS, JavaScript
-- **Backend:** Node.js, Express.js
-- **Database:** MongoDB with Mongoose
-- **Authentication:** JSON Web Tokens (JWT)
-- **Video Conferencing:** Jitsi Meet
-- **File Uploads:** Multer
+### Frontend
+
+- HTML5, CSS3, JavaScript
+- Responsive Layout & Custom CSS
+- Toasts for UI Feedback
+
+### Backend
+
+- Node.js + Express
+- MongoDB + Mongoose
+- Multer (for file uploads)
+- JWT (for authentication)
+- Jitsi (for video conferencing)
 
 ---
 
-##  Local Setup Instructions
+## Setup Instructions
 
-Follow the steps below to run the app locally on your machine.
+1. **Clone the Repository**
 
-###  1. Sign Up as a Therapist or Client
-- **Therapists** register with their name, qualifications, specializations, and a profile picture.
-- **Clients** sign up with their basic info, a profile photo, and an optional bio.
+```bash
+git clone https://github.com/Emma-Asoliya/teletherapy_platform.git
+```
 
-###  2. Log In
-- Use your email and password to securely log in.
-- A token-based login system ensures secure and persistent sessions.
+2. **Install Dependencies**
 
-###  3. Dashboard Access
-- After login, users are redirected to a **role-specific dashboard**:
-  - **Clients** see a list of available therapists and their profiles.
-  - **Therapists** see a list of booked appointments and client info.
+```bash
+npm install
+```
 
-###  4. Booking Appointments
-- Clients can:
-  - Browse therapists
-  - Book appointments
-  - View upcoming sessions
-  - Reschedule or cancel if needed
-  - Join a live video session when it’s time (powered by Jitsi)
+3. **Environment Variables**
 
-- Therapists can:
-  - View client appointment requests
-  - Join sessions
-  - Cancel or reschedule appointments
+Create a `.env` file in the root directory:
 
-###  5. Edit Your Profile
-- Both roles can update their personal details, profile picture, and short bio from the dashboard.
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+```
 
-###  6. Live Sessions
-- When it’s time, users can click **“Join Session”** and enter a secure video call room.
-- Sessions are browser-based and powered by **Jitsi Meet** (no software install required).
+4. **Run the App Locally**
 
-###  7. Navigation
-- The **About Us** and **Contact Us** pages are accessible from the top navigation menu — both before and after login.
+```bash
+node index.js
+```
 
+Then open `http://localhost:5000` in your browser.
 
+---
 
-##  Tech Stack
+## Project Structure
 
-UnMutedMinds is built with a modern and clean web stack:
+```
+├── public/
+│   ├── index.html
+│   ├── login.html
+│   ├── dashboard.html
+│   ├── therapist-dashboard.html
+│   ├── session.html
+│   ├── about.html
+│   └── contact.html
+│
+├── routes/
+│   ├── auth.js
+│   ├── appointments.js
+│   └── contact.js
+│
+├── models/
+│   ├── User.js
+│   └── Appointment.js
+│
+├── middleware/
+│   ├── upload.js
+│   └── auth.js
+│
+├── uploads/
+├── index.js
+└── .env
+```
 
-| Layer            | Technology Used                  |
-|------------------|----------------------------------|
-| Frontend         | HTML5, CSS3, JavaScript (Vanilla)|
-| Backend          | Node.js, Express.js              |
-| Database         | MongoDB (Mongoose ODM)           |
-| Authentication   | JWT (JSON Web Tokens)            |
-| File Uploads     | Multer for profile images        |
-| Video Sessions   | Jitsi Meet API                   |
-| Deployment Ready | Yes (Render, Vercel, Heroku)     |
+---
 
+## Image Upload Notes
 
+- Uploaded profile images are saved in the `/uploads` directory.
+- If deployed on **Render**, consider using **Cloudinary** for persistent image hosting.
+- Default fallback images are stored in `public/images/`.
 
-##  Future Features
+---
 
-We plan to extend UnMutedMinds with:
--  In-app messaging between clients and therapists
--  Session reminders via email or SMS
--  Therapist availability calendar
--  Payment integration for paid sessions
--  Admin dashboard for moderation and analytics
--  Multilingual support for regional users
+## Video Conferencing
 
+- Uses [Jitsi Meet](https://jitsi.org) for real-time sessions
+- Sessions are room-based using unique IDs
 
+---
 
-##  Why UnMutedMinds Matters
+## Deployment
 
-This app is more than a product — it’s a movement to empower young people to speak up, get help, and prioritize their mental health. By merging **technology**, **storytelling**, and **accessibility**, UnMutedMinds makes wellness support **visible, valuable, and impactful**.
+- **Frontend** deployed to [netlify.com](https://netlify.com)
+- **Backend** deployed to [Render.com](https://render.com)
+- Static files served via Express
+- Uses `express.static()` for `/uploads` and `/public`
 
+---
+
+## Developer
+
+**Emmanuella Briggs**  
+Frontend & Backend Developer | UI Designer  
+ emmanuella@example.com (replace with real one)  
+ Rwanda
+
+---
