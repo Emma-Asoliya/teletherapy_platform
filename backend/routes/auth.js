@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/User'); 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const upload = require('../middleware/upload');
+const upload = require('../middleware/cloudinary'); // Ensure this is the correct path to your upload middleware
 const verifyToken = require('../middleware/auth');
 const crypto = require('crypto');
 
@@ -44,7 +44,7 @@ router.post('/signup', upload.single('profilePicture'), async (req, res) => {
       role,
       gender,
       dob,
-      profilePicture: req.file?.filename,
+      profilePicture: req.file?.path,
       ...(role === 'therapist' && {
         qualifications,
         specializations
@@ -142,7 +142,7 @@ router.put('/update-profile', verifyToken, upload.single('profilePicture'), asyn
     };
 
     if (req.file) {
-      updateData.profilePicture = req.file.filename;
+      updateData.profilePicture = req.file.path;
     }
 
     const updatedUser = await User.findByIdAndUpdate(

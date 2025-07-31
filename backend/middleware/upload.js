@@ -1,28 +1,22 @@
 const multer = require('multer');
-const path = require('path');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('cloudinary').v2;
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/'); 
-  },
-  filename: function (req, file, cb) {
-    const uniqueName = Date.now() + '-' + file.originalname;
-    cb(null, uniqueName);
-  }
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const fileFilter = (req, file, cb) => {
-  const allowedTypes = /jpeg|jpg|png|gif/;
-  const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = allowedTypes.test(file.mimetype);
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'unmutedminds_profiles',
+    allowed_formats: ['jpg', 'jpeg', 'png'],
+    transformation: [{ width: 500, height: 500, crop: 'limit' }],
+  },
+});
 
-  if (extname && mimetype) {
-    cb(null, true);
-  } else {
-    cb(new Error('Only image files are allowed'), false);
-  }
-};
-
-const upload = multer({ storage: storage, fileFilter: fileFilter });
+const upload = multer({ storage });
 
 module.exports = upload;
