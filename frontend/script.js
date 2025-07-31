@@ -8,7 +8,7 @@ document.querySelector('form').addEventListener('submit', async (e) => {
     role: document.querySelector('#role').value
   };
 
-  const res = await fetch('http://localhost:5000/api/auth/signup', {
+  const res = await fetch('https://teletherapy-platform.onrender.com/api/auth/signup', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(userData)
