@@ -84,7 +84,7 @@
 
     const profilePicture = document.getElementById('therapistPhoto');
     if (payload.profilePicture && profilePicture) {
-      profilePicture.src = `https://unmutedminds.onrender.com/uploads/${payload.profilePicture}`;
+      profilePicture.src = `https://teletherapy-platform.onrender.com/uploads/${payload.profilePicture}`;
     }
 
     document.getElementById('profileName').textContent = payload.name || '';
@@ -101,7 +101,7 @@
       container.innerHTML = '';
 
       try {
-        const res = await fetch('https://unmutedminds.onrender.com/api/appointments/therapist', {
+        const res = await fetch('https://teletherapy-platform.onrender.com/api/appointments/therapist', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -151,7 +151,7 @@
   if (!newTime) return;
 
   try {
-    const res = await fetch(`https://unmutedminds.onrender.com/api/appointments/${app._id}/reschedule`, {
+    const res = await fetch(`https://teletherapy-platform.onrender.com/api/appointments/${app._id}/reschedule`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
