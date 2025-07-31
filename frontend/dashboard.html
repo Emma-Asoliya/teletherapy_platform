@@ -145,9 +145,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("userRole").textContent = payload.role || "N/A";
   document.getElementById("bio").value = payload.bio || "";
   document.getElementById("userEmail").textContent = payload.email;
-  document.getElementById("userPhoto").src = payload.profilePicture
-    ? payload.profilePicture
-    : "images/default-profile.png";
+ document.getElementById("userPhoto").src = payload.profilePicture
+  ? (payload.profilePicture.startsWith("http")
+      ? payload.profilePicture
+      : `https://teletherapy-platform.onrender.com/uploads/${payload.profilePicture}`)
+  : "images/default-profile.png";
+
 
   document.getElementById("logoutBtn").addEventListener("click", () => {
     localStorage.removeItem("token");
@@ -184,9 +187,12 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast("Profile updated successfully!");
         document.getElementById("userName").textContent = data.user.name;
         document.getElementById("userEmail").textContent = data.user.email;
-        document.getElementById("userPhoto").src = data.user.profilePicture
-          ? data.user.profilePicture
-          : "images/default-profile.png";
+     document.getElementById("userPhoto").src = data.user.profilePicture
+  ? (data.user.profilePicture.startsWith("http")
+      ? data.user.profilePicture
+      : `https://teletherapy-platform.onrender.com/uploads/${data.user.profilePicture}`)
+  : "images/default-profile.png";
+
       } else {
         alert(data.message || "Update failed.");
       }
@@ -272,9 +278,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.createElement("div");
       card.className = "appointment-card";
 
-      const therapistPhoto = appt.therapist?.profilePicture
-        ? `https://teletherapy-platform.onrender.com/uploads/${appt.therapist.profilePicture}`
-        : "images/default-profile.png";
+     const therapistPhoto = appt.therapist?.profilePicture
+  ? (appt.therapist.profilePicture.startsWith("http")
+      ? appt.therapist.profilePicture
+      : `https://teletherapy-platform.onrender.com/uploads/${appt.therapist.profilePicture}`)
+  : "images/default-profile.png";
 
       card.innerHTML = `
         <img src="${therapistPhoto}" alt="${appt.therapist?.name || "Therapist"}" />
